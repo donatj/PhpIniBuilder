@@ -1,6 +1,6 @@
 {
     "name": "donatj/php-ini-builder",
-    "description": "parse_ini_string compatable ini builder",
+    "description": "PHP `parse_ini_string` Compatible INI Builder",
     "require-dev": {
         "donatj/drop": "*"
     },
@@ -11,9 +11,6 @@
             "email": "donatj@gmail.com"
         }
     ],
-    "require": {
-
-    },
 	"autoload": {
 		"psr-0": {
 			"donatj": "src/"
