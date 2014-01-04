@@ -12,11 +12,11 @@ class Builder {
 	/**
 	 * @var bool
 	 */
-	private $enableBool = true;
+	private $enableBool;
 	/**
 	 * @var bool
 	 */
-	private $enableNumeric = true;
+	private $enableNumeric;
 	/**
 	 * @var null|array
 	 */
@@ -25,8 +25,10 @@ class Builder {
 	/**
 	 * @param array $data
 	 */
-	public function __construct( array $data ) {
-		$this->data = $data;
+	public function __construct( array $data, $enableBool = true, $enableNumeric = true ) {
+		$this->data          = $data;
+		$this->enableBool    = $enableBool;
+		$this->enableNumeric = $enableNumeric;
 	}
 
 	/**
