@@ -2,16 +2,21 @@
 
 namespace donatj\Ini;
 
+/**
+ * Utility for Converting An Array to a INI string
+ *
+ * @package donatj\Ini
+ */
 class Builder {
 
 	/**
 	 * @var bool
 	 */
-	public $enableBool = true;
+	private $enableBool = true;
 	/**
 	 * @var bool
 	 */
-	public $enableNumeric = true;
+	private $enableNumeric = true;
 	/**
 	 * @var null|array
 	 */
@@ -96,6 +101,10 @@ class Builder {
 	/**
 	 * Enable / Disable Automatic Boolean Detection
 	 *
+	 * PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same values
+	 * when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be output
+	 * as `true` / `false`
+	 *
 	 * @param bool $enableBool
 	 */
 	public function enableBoolDetection( $enableBool ) {
@@ -104,6 +113,9 @@ class Builder {
 
 	/**
 	 * Enable / Disable Automatic Numeric Detection
+	 *
+	 * PHP's built in `parse_ini_*` methods parse all values to string, enabling this option enables numeric detection
+	 * so they will be output once again as floats/ints
 	 *
 	 * @param boolean $enableNumeric
 	 */
