@@ -6,7 +6,7 @@ Create `parse_ini_string` / `parse_ini_file` compatible INI strings from associa
 
 The following is a simple example usage.
 
-```
+```php
 $data = array(
 	'Title' => array(
 		'str' => 'awesome',
@@ -27,7 +27,7 @@ echo $x->generate();
 
 Outputs:
 
-```
+```ini
 [Title]
 str = 'awesome'
 int = 7
