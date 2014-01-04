@@ -45,7 +45,7 @@ class Builder {
 		foreach( $data as $key => $val ) {
 			if( is_array($val) ) {
 				if( $depth == 0 ) {
-					$output .= "[{$key}]\n";
+					$output .= "\n[{$key}]\n";
 					$output .= $this->build($val, $depth + 1);
 				} else {
 					$output .= $this->build($val, $depth + 1, $key);
@@ -71,7 +71,7 @@ class Builder {
 			}
 		}
 
-		return $output;
+		return ltrim($output);
 
 	}
 
