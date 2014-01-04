@@ -76,7 +76,7 @@ class Builder {
 			}
 		}
 
-		return ltrim($output);
+		return $depth ? ltrim($output) : trim($output);
 
 	}
 
