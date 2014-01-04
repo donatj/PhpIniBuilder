@@ -43,18 +43,14 @@ class Builder {
 
 		$position = 0;
 		foreach( $data as $key => $val ) {
-
 			if( is_array($val) ) {
-
 				if( $depth == 0 ) {
-					echo "[{$key}]\n";
+					$output .= "[{$key}]\n";
 					$output .= $this->build($val, $depth + 1);
 				} else {
 					$output .= $this->build($val, $depth + 1, $key);
 				}
-
 			} else {
-
 				$valStr = $this->valEscape($val);
 				if( $prevKey !== false ) {
 
@@ -73,7 +69,6 @@ class Builder {
 					$output .= "{$key} = {$valStr}\n";
 				}
 			}
-
 		}
 
 		return $output;
