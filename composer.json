@@ -2,7 +2,8 @@
     "name": "donatj/php-ini-builder",
     "description": "PHP `parse_ini_string` Compatible INI Builder",
     "require-dev": {
-        "donatj/drop": "*"
+        "donatj/drop": "*",
+		"phpunit/phpunit": "3.7.*"
     },
     "license": "MIT",
     "authors": [
