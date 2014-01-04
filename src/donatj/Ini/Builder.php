@@ -24,6 +24,8 @@ class Builder {
 
 	/**
 	 * @param array $data
+	 * @param bool  $enableBool Enable bool detection
+	 * @param bool  $enableNumeric Enable numeric detection
 	 */
 	public function __construct( array $data, $enableBool = true, $enableNumeric = true ) {
 		$this->data          = $data;
