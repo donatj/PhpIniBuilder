@@ -105,3 +105,4 @@ so they will be output once again as floats/ints
 
 ### Class: ExceededMaxDepthException - `\donatj\Ini\ExceededMaxDepthException`
 
+...
