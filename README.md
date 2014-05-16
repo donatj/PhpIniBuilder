@@ -1,12 +1,36 @@
 # PHP INI Builder
 
-Create `parse_ini_string` / `parse_ini_file` compatible INI strings from associative arrays.
+[![Latest Stable Version](https://poser.pugx.org/donatj/php-ini-builder/v/stable.png)](https://packagist.org/packages/donatj/php-ini-builder)
+[![License](https://poser.pugx.org/donatj/php-ini-builder/license.png)](https://packagist.org/packages/donatj/php-ini-builder)
+[![Build Status](https://travis-ci.org/donatj/PhpIniBuilder.svg?branch=master)](https://travis-ci.org/donatj/PhpIniBuilder)
+
+Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from associative arrays.
+
+## Requirements
+
+- PHP 5.3+
+
+## Installing
+
+PHP INI Builder is available through Packagist via Composer
+
+```json
+{
+    "require": {
+        "donatj/php-ini-builder": "dev-master"
+    }
+}
+```
 
 ## Example
 
-The following is a simple example usage.
+Here is a simple example script:
 
 ```php
+<?php
+
+require(__DIR__ . '/../vendor/autoload.php');
+
 $data = array(
 	'Title' => array(
 		'str' => 'awesome',
@@ -25,9 +49,9 @@ $x = new \donatj\Ini\Builder($data);
 echo $x->generate();
 ```
 
-Outputs:
+Which outputs:
 
-```ini
+```php
 [Title]
 str = 'awesome'
 int = 7
@@ -41,17 +65,18 @@ arr[] = 'c'
 arr[6] = 'd'
 arr[] = 'e'
 arr[key] = 'f'
+
 ```
 
 ## Documentation
 
-### Class: Builder - `\donatj\Ini\Builder`
+### Class: Builder \[ `\donatj\Ini` \]
 
 Utility for Converting An Array to a INI string
 
-#### Method: `Builder`->`__construct($data [, $enableBool = true [, $enableNumeric = true]])`
+#### Method: `Builder->__construct([ $data = null [, $enableBool = true [, $enableNumeric = true]]])`
 
-##### Parameters
+##### Parameters:
 
 - ***array*** `$data`
 - ***bool*** `$enableBool` - Enable bool detection
@@ -61,20 +86,39 @@ Utility for Converting An Array to a INI string
 
 ---
 
-#### Method: `Builder`->`generate()`
+#### Method: `Builder->setData($data)`
+
+##### Parameters:
+
+- ***array*** | ***null*** `$data`
+
+
+
+---
+
+#### Method: `Builder->getData()`
+
+##### Returns:
+
+- ***array*** | ***null***
+
+
+---
+
+#### Method: `Builder->generate()`
 
 INI String Result  
   
 
 
-##### Returns
+##### Returns:
 
 - ***string***
 
 
 ---
 
-#### Method: `Builder`->`enableBoolDetection($enableBool)`
+#### Method: `Builder->enableBoolDetection($enableBool)`
 
 Enable / Disable Automatic Boolean Detection  
 PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same values  
@@ -82,7 +126,7 @@ when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option cause
 as `true` / `false`  
 
 
-##### Parameters
+##### Parameters:
 
 - ***bool*** `$enableBool`
 
@@ -90,19 +134,14 @@ as `true` / `false`
 
 ---
 
-#### Method: `Builder`->`enableNumericDetection($enableNumeric)`
+#### Method: `Builder->enableNumericDetection($enableNumeric)`
 
 Enable / Disable Automatic Numeric Detection  
 PHP's built in `parse_ini_*` methods parse all values to string, enabling this option enables numeric detection  
 so they will be output once again as floats/ints  
 
 
-##### Parameters
+##### Parameters:
 
 - ***boolean*** `$enableNumeric`
 
-
-
-### Class: ExceededMaxDepthException - `\donatj\Ini\ExceededMaxDepthException`
-
-...
