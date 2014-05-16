@@ -69,13 +69,11 @@ class Builder {
 			if( is_array($val) ) {
 				if( $depth == 0 ) {
 					$output .= "\n[{$key}]\n";
-					$output .= $this->build($val, $depth + 1);
-				} else {
-					$output .= $this->build($val, $depth + 1, $key);
 				}
+				$output .= $this->build($val, $depth + 1, $key);
 			} else {
 				$valStr = $this->valEscape($val);
-				if( $prevKey !== false ) {
+				if( $depth > 1 ) {
 
 					if( $key !== $position ) {
 						if( ctype_digit((string)$key) ) {
