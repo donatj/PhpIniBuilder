@@ -27,10 +27,24 @@ class Builder {
 	 * @param bool  $enableBool Enable bool detection
 	 * @param bool  $enableNumeric Enable numeric detection
 	 */
-	public function __construct( array $data, $enableBool = true, $enableNumeric = true ) {
+	public function __construct( array $data = null, $enableBool = true, $enableNumeric = true ) {
 		$this->data          = $data;
 		$this->enableBool    = $enableBool;
 		$this->enableNumeric = $enableNumeric;
+	}
+
+	/**
+	 * @param array|null $data
+	 */
+	public function setData( $data ) {
+		$this->data = $data;
+	}
+
+	/**
+	 * @return array|null
+	 */
+	public function getData() {
+		return $this->data;
 	}
 
 	/**
