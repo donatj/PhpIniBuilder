@@ -39,6 +39,14 @@ class BuilderTest extends \PHPUnit_Framework_TestCase {
 		$this->assertStringEndsWith("'3.14159265'", $builder->generate());
 	}
 
+	public function testNumericIndex() {
+
+		$data = array('x' => array('y' => array('a' => 'test', '2','3','4',6 => '4', '7', 5 => 'bbq', 'bbq' => 'soda')));
+		$builder = new Builder($data);
+
+		$this->assertSame($data, parse_ini_string($builder->generate(), true));
+	}
+
 
 }
  
