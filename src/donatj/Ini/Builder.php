@@ -17,6 +17,7 @@ class Builder {
 	 * @var bool
 	 */
 	private $enableNumeric;
+	private $enableAlphaNumeric;
 	/**
 	 * @var null|array
 	 */
@@ -24,13 +25,15 @@ class Builder {
 
 	/**
 	 * @param array $data
-	 * @param bool  $enableBool Enable bool detection
-	 * @param bool  $enableNumeric Enable numeric detection
+	 * @param bool  $enableBool
+	 * @param bool  $enableNumeric
+	 * @param bool  $enableAlphaNumeric
 	 */
-	public function __construct( array $data = null, $enableBool = true, $enableNumeric = true ) {
-		$this->data          = $data;
-		$this->enableBool    = $enableBool;
-		$this->enableNumeric = $enableNumeric;
+	public function __construct( array $data = null, $enableBool = true, $enableNumeric = true, $enableAlphaNumeric = true ) {
+		$this->data               = $data;
+		$this->enableBool         = $enableBool;
+		$this->enableNumeric      = $enableNumeric;
+		$this->enableAlphaNumeric = $enableAlphaNumeric;
 	}
 
 	/**
@@ -111,6 +114,10 @@ class Builder {
 			return (string)$value;
 		}
 
+		if( $this->enableAlphaNumeric && is_string($value) && ctype_alnum($value) && !is_numeric($value) ) {
+			return (string)$value;
+		}
+
 		return var_export($value, true);
 	}
 
@@ -130,13 +137,25 @@ class Builder {
 	/**
 	 * Enable / Disable Automatic Numeric Detection
 	 *
-	 * PHP's built in `parse_ini_*` methods parse all values to string, enabling this option enables numeric detection
+	 * PHP's built in `parse_ini_*` methods parse all values to string. Enabling this option enables numeric detection
 	 * so they will be output once again as floats/ints
 	 *
 	 * @param boolean $enableNumeric
 	 */
 	public function enableNumericDetection( $enableNumeric ) {
 		$this->enableNumeric = $enableNumeric;
+	}
+
+	/**
+	 * Enable / Disable Automatic AlphaNumeric Detection
+	 *
+	 * PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces. Enabling
+	 * this option removes the quotation marks on said simple strings.
+	 *
+	 * @param boolean $enableAlphaNumeric
+	 */
+	public function enableAlphaNumericDetection( $enableAlphaNumeric ) {
+		$this->enableAlphaNumeric = $enableAlphaNumeric;
 	}
 
 }
