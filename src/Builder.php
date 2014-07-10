@@ -57,11 +57,11 @@ class Builder {
 	 *
 	 * @param array $data
 	 * @param int   $depth
-	 * @param bool  $prevKey
+	 * @param null|int|float|string $prevKey
 	 * @return string
 	 * @throws ExceededMaxDepthException
 	 */
-	protected function build( array $data, $depth = 0, $prevKey = false ) {
+	protected function build( array $data, $depth = 0, $prevKey = null ) {
 
 		$output = "";
 
