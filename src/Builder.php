@@ -12,54 +12,56 @@ class Builder {
 	/**
 	 * @var bool
 	 */
-	private $enableBool;
+	protected $enableBool;
 	/**
 	 * @var bool
 	 */
-	private $enableNumeric;
-	private $enableAlphaNumeric;
+	protected $enableNumeric;
 	/**
-	 * @var null|array
+	 * @var bool
 	 */
-	private $data;
+	protected $enableAlphaNumeric;
 
 	/**
-	 * @param array $data
-	 * @param bool  $enableBool
-	 * @param bool  $enableNumeric
-	 * @param bool  $enableAlphaNumeric
+	 * @param bool $enableBool
+	 * @param bool $enableNumeric
+	 * @param bool $enableAlphaNumeric
 	 */
-	public function __construct( array $data = null, $enableBool = true, $enableNumeric = true, $enableAlphaNumeric = true ) {
-		$this->data               = $data;
+	public function __construct( $enableBool = true, $enableNumeric = true, $enableAlphaNumeric = true ) {
 		$this->enableBool         = $enableBool;
 		$this->enableNumeric      = $enableNumeric;
 		$this->enableAlphaNumeric = $enableAlphaNumeric;
 	}
 
 	/**
-	 * @param array|null $data
-	 */
-	public function setData( $data ) {
-		$this->data = $data;
-	}
-
-	/**
-	 * @return array|null
-	 */
-	public function getData() {
-		return $this->data;
-	}
-
-	/**
 	 * INI String Result
 	 *
+	 * @param array $data
 	 * @return string
+	 * @throws ExceededMaxDepthException
 	 */
-	function generate() {
-		return $this->build($this->data);
+	public function generate( array $data ) {
+		return $this->build($data);
 	}
 
-	private function build( array $data, $depth = 0, $prevKey = false ) {
+	/**
+	 * @param array $data
+	 * @return string
+	 */
+	public function __invoke( array $data ) {
+		return $this->generate($data);
+	}
+
+	/**
+	 * Recursive build function
+	 *
+	 * @param array $data
+	 * @param int   $depth
+	 * @param bool  $prevKey
+	 * @return string
+	 * @throws ExceededMaxDepthException
+	 */
+	protected function build( array $data, $depth = 0, $prevKey = false ) {
 
 		$output = "";
 
@@ -99,7 +101,13 @@ class Builder {
 
 	}
 
-	private function valEscape( $value ) {
+	/**
+	 * Escapes Values
+	 *
+	 * @param $value
+	 * @return mixed|string
+	 */
+	protected function valEscape( $value ) {
 		$value = (string)$value;
 
 		if( $this->enableBool ) {

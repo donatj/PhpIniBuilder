@@ -11,40 +11,40 @@ class BuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMaxDepthException() {
 		$data    = array( 'x' => array( 'y' => array( 'z' => array( 'a' => 1 ) ) ) );
-		$builder = new Builder($data);
-		$builder->generate();
+		$builder = new Builder();
+		$builder->generate($data);
 	}
 
 	public function testEnableBoolDetection() {
-		$builder = new Builder(array('x' => 1));
-		$this->assertStringEndsWith("true", $builder->generate());
+		$builder = new Builder();
+		$this->assertStringEndsWith("true", $builder->generate(array('x' => 1)));
 
 		$builder->enableBoolDetection(false);
-		$this->assertStringEndsWith("1", $builder->generate());
+		$this->assertStringEndsWith("1", $builder->generate(array('x' => 1)));
 	}
 
 	public function testEnableNumericDetection() {
 		// Integer
-		$builder = new Builder(array('x' => 7));
-		$this->assertStringEndsWith("7", $builder->generate());
+		$builder = new Builder();
+		$this->assertStringEndsWith("7", $builder->generate(array('x' => 7)));
 
 		$builder->enableNumericDetection(false);
-		$this->assertStringEndsWith("'7'", $builder->generate());
+		$this->assertStringEndsWith("'7'", $builder->generate(array('x' => 7)));
 
 		// Float
-		$builder = new Builder(array('x' => 3.14159265));
-		$this->assertStringEndsWith("3.14159265", $builder->generate());
+		$builder = new Builder();
+		$this->assertStringEndsWith("3.14159265", $builder->generate(array('x' => 3.14159265)));
 
 		$builder->enableNumericDetection(false);
-		$this->assertStringEndsWith("'3.14159265'", $builder->generate());
+		$this->assertStringEndsWith("'3.14159265'", $builder->generate(array('x' => 3.14159265)));
 	}
 
 	public function testNumericIndex() {
 
 		$data = array('x' => array('y' => array('a' => 'test', '2','3','4',6 => '4', '7', 5 => 'bbq', 'bbq' => 'soda')));
-		$builder = new Builder($data);
+		$builder = new Builder();
 
-		$this->assertSame($data, parse_ini_string($builder->generate(), true));
+		$this->assertSame($data, parse_ini_string($builder->generate($data), true));
 	}
 
 

@@ -13,8 +13,8 @@
         }
     ],
 	"autoload": {
-		"psr-0": {
-			"donatj": "src/"
+		"psr-4": {
+			"donatj\\Ini\\": "src/"
 		}
 	}
 }
