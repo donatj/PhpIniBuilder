@@ -104,8 +104,8 @@ class Builder {
 	/**
 	 * Escapes Values
 	 *
-	 * @param $value
-	 * @return mixed|string
+	 * @param mixed $value
+	 * @return string
 	 */
 	protected function valEscape( $value ) {
 		$value = (string)$value;
