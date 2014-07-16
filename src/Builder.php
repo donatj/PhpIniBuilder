@@ -77,7 +77,7 @@ class Builder {
 				}
 				$output .= $this->build($val, $depth + 1, $key);
 			} else {
-				$valStr = $this->valEscape($val);
+				$valStr = $this->escape($val);
 				if( $depth > 1 ) {
 
 					if( $key !== $position ) {
@@ -102,12 +102,12 @@ class Builder {
 	}
 
 	/**
-	 * Escapes Values
+	 * Escapes Values According to Currently Set Rules
 	 *
 	 * @param mixed $value
 	 * @return string
 	 */
-	protected function valEscape( $value ) {
+	public function escape( $value ) {
 		$value = (string)$value;
 
 		if( $this->enableBool ) {
