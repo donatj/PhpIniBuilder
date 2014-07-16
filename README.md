@@ -74,41 +74,59 @@ arr[key] = 'f'
 
 Utility for Converting An Array to a INI string
 
-#### Method: `Builder->__construct([ $data = null [, $enableBool = true [, $enableNumeric = true]]])`
+#### Method: `Builder->__construct([ $enableBool = true [, $enableNumeric = true [, $enableAlphaNumeric = true]]])`
+
+##### Parameters:
+
+- ***bool*** `$enableBool`
+- ***bool*** `$enableNumeric`
+- ***bool*** `$enableAlphaNumeric`
+
+
+
+---
+
+#### Method: `Builder->generate($data)`
+
+INI String Result  
+  
+
 
 ##### Parameters:
 
 - ***array*** `$data`
-- ***bool*** `$enableBool` - Enable bool detection
-- ***bool*** `$enableNumeric` - Enable numeric detection
 
-
-
----
-
-#### Method: `Builder->setData($data)`
-
-##### Parameters:
-
-- ***array*** | ***null*** `$data`
-
-
-
----
-
-#### Method: `Builder->getData()`
 
 ##### Returns:
 
-- ***array*** | ***null***
+- ***string***
 
 
 ---
 
-#### Method: `Builder->generate()`
+#### Method: `Builder->__invoke($data)`
 
-INI String Result  
+##### Parameters:
+
+- ***array*** `$data`
+
+
+##### Returns:
+
+- ***string***
+
+
+---
+
+#### Method: `Builder->escape($value)`
+
+Escapes Values According to Currently Set Rules  
   
+
+
+##### Parameters:
+
+- ***mixed*** `$value`
 
 
 ##### Returns:
@@ -137,11 +155,26 @@ as `true` / `false`
 #### Method: `Builder->enableNumericDetection($enableNumeric)`
 
 Enable / Disable Automatic Numeric Detection  
-PHP's built in `parse_ini_*` methods parse all values to string, enabling this option enables numeric detection  
+PHP's built in `parse_ini_*` methods parse all values to string. Enabling this option enables numeric detection  
 so they will be output once again as floats/ints  
 
 
 ##### Parameters:
 
 - ***boolean*** `$enableNumeric`
+
+
+
+---
+
+#### Method: `Builder->enableAlphaNumericDetection($enableAlphaNumeric)`
+
+Enable / Disable Automatic AlphaNumeric Detection  
+PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces. Enabling  
+this option removes the quotation marks on said simple strings.  
+
+
+##### Parameters:
+
+- ***boolean*** `$enableAlphaNumeric`
 

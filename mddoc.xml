@@ -44,7 +44,7 @@ arr[key] = 'f'
 ]]></source>
 			</section>
 			<section title="Documentation">
-				<file name="src/donatj/ini/Builder.php" />
+				<file name="src/Builder.php" />
 			</section>
 		</section>
 	</docpage>
