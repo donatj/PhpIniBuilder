@@ -32,7 +32,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase {
 		$this->assertStringEndsWith("'7'", $builder->generate(array('x' => 7)));
 
 		// Float
-		$builder = new Builder();
+		$builder->enableNumericDetection(true);
 		$this->assertStringEndsWith("3.14159265", $builder->generate(array('x' => 3.14159265)));
 
 		$builder->enableNumericDetection(false);
