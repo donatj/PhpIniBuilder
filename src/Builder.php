@@ -62,8 +62,8 @@ class Builder {
 	 * @throws ExceededMaxDepthException
 	 */
 	protected function build( array $data, $depth = 0, $prevKey = null ) {
-
-		$output = "";
+		$valueOutput = "";
+		$arrayOutput = "";
 
 		if( $depth > 2 ) {
 			throw new ExceededMaxDepthException("Max INI Depth of 2 Exceeded");
@@ -73,9 +73,9 @@ class Builder {
 		foreach( $data as $key => $val ) {
 			if( is_array($val) ) {
 				if( $depth == 0 ) {
-					$output .= "\n[{$key}]\n";
+					$arrayOutput .= "\n[{$key}]\n";
 				}
-				$output .= $this->build($val, $depth + 1, $key);
+				$arrayOutput .= $this->build($val, $depth + 1, $key);
 			} else {
 				$valStr = $this->escape($val);
 				if( $depth > 1 ) {
@@ -85,17 +85,19 @@ class Builder {
 							$position = $key;
 						}
 
-						$output .= "{$prevKey}[{$key}] = {$valStr}\n";
+						$valueOutput .= "{$prevKey}[{$key}] = {$valStr}\n";
 					} else {
-						$output .= "{$prevKey}[] = {$valStr}\n";
+						$valueOutput .= "{$prevKey}[] = {$valStr}\n";
 					}
 
 					$position++;
 				} else {
-					$output .= "{$key} = {$valStr}\n";
+					$valueOutput .= "{$key} = {$valStr}\n";
 				}
 			}
 		}
+
+		$output = "{$valueOutput}\n{$arrayOutput}";
 
 		return $depth ? ltrim($output) : trim($output);
 
