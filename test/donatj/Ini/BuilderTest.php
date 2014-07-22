@@ -47,6 +47,18 @@ class BuilderTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame($data, parse_ini_string($builder->generate($data), true));
 	}
 
+	public function testLateRootValues() {
+		$builder = new Builder();
+		$data = array(
+			'x' => array(
+				'y' => 'testValue'
+			),
+			'late' => 'value',
+		);
+
+		$this->assertSame($data, parse_ini_string($builder->generate($data), true));
+	}
+
 
 }
  
