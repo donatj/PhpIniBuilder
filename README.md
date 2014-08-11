@@ -45,8 +45,8 @@ $data = array(
 	)
 );
 
-$x = new \donatj\Ini\Builder($data);
-echo $x->generate();
+$x = new \donatj\Ini\Builder();
+echo $x->generate($data);
 ```
 
 Which outputs:
