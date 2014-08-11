@@ -74,13 +74,14 @@ arr[key] = 'f'
 
 Utility for Converting An Array to a INI string
 
-#### Method: `Builder->__construct([ $enableBool = true [, $enableNumeric = true [, $enableAlphaNumeric = true]]])`
+#### Method: `Builder->__construct([ $enableBool = true [, $enableNumeric = true [, $enableAlphaNumeric = true [, $skipNullValues = false]]]])`
 
 ##### Parameters:
 
 - ***bool*** `$enableBool`
 - ***bool*** `$enableNumeric`
 - ***bool*** `$enableAlphaNumeric`
+- ***bool*** `$skipNullValues`
 
 
 
@@ -177,4 +178,18 @@ this option removes the quotation marks on said simple strings.
 ##### Parameters:
 
 - ***boolean*** `$enableAlphaNumeric`
+
+
+
+---
+
+#### Method: `Builder->enableSkipNullValues($skipNullValues)`
+
+Enable / Disable Skipping Null Values  
+When enabled, null values will be skipped.  
+
+
+##### Parameters:
+
+- ***boolean*** `$skipNullValues`
 
