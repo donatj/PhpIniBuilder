@@ -21,16 +21,22 @@ class Builder {
 	 * @var bool
 	 */
 	protected $enableAlphaNumeric;
+	/**
+	 * @var bool
+	 */
+	protected $skipNullValues;
 
 	/**
 	 * @param bool $enableBool
 	 * @param bool $enableNumeric
 	 * @param bool $enableAlphaNumeric
+	 * @param bool $skipNullValues
 	 */
-	public function __construct( $enableBool = true, $enableNumeric = true, $enableAlphaNumeric = true ) {
+	public function __construct( $enableBool = true, $enableNumeric = true, $enableAlphaNumeric = true, $skipNullValues = false ) {
 		$this->enableBool         = $enableBool;
 		$this->enableNumeric      = $enableNumeric;
 		$this->enableAlphaNumeric = $enableAlphaNumeric;
+		$this->skipNullValues     = $skipNullValues;
 	}
 
 	/**
@@ -55,8 +61,8 @@ class Builder {
 	/**
 	 * Recursive build function
 	 *
-	 * @param array $data
-	 * @param int   $depth
+	 * @param array                 $data
+	 * @param int                   $depth
 	 * @param null|int|float|string $prevKey
 	 * @return string
 	 * @throws ExceededMaxDepthException
@@ -71,7 +77,9 @@ class Builder {
 
 		$position = 0;
 		foreach( $data as $key => $val ) {
-			if( is_array($val) ) {
+			if( $this->skipNullValues && $val === null ) {
+				continue;
+			} elseif( is_array($val) ) {
 				if( $depth == 0 ) {
 					$arrayOutput .= "\n[{$key}]\n";
 				}
@@ -100,7 +108,6 @@ class Builder {
 		$output = "{$valueOutput}\n{$arrayOutput}";
 
 		return $depth ? ltrim($output) : trim($output);
-
 	}
 
 	/**
@@ -166,6 +173,17 @@ class Builder {
 	 */
 	public function enableAlphaNumericDetection( $enableAlphaNumeric ) {
 		$this->enableAlphaNumeric = $enableAlphaNumeric;
+	}
+
+	/**
+	 * Enable / Disable Skipping Null Values
+	 *
+	 * When enabled, null values will be skipped.
+	 *
+	 * @param boolean $skipNullValues
+	 */
+	public function enableSkipNullValues( $skipNullValues ) {
+		$this->skipNullValues = $skipNullValues;
 	}
 
 }

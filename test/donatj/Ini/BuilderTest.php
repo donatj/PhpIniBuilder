@@ -59,6 +59,28 @@ class BuilderTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue($this->arrays_are_similar(parse_ini_string($builder->generate($data), true), $data), 'Assert Late Root Keys Will be Processed');
 	}
 
+	public function testSkipNullValues() {
+		$builder = new Builder();
+		$builder->enableSkipNullValues(true);
+
+		$data = array(
+			'x'     => array(
+				'z' => null,
+			),
+			'y'     => array( 1, 2, null, 3 ),
+			'other' => null,
+		);
+
+		//demands empty x,skip index 2, no other
+		$this->assertEquals(trim('[x]
+
+[y]
+0 = true
+1 = 2
+3 = 3'), trim($builder->generate($data)));
+
+	}
+
 	private function arrays_are_similar( $aSide, $bSide ) {
 
 		$keys = array_unique(array_merge(
