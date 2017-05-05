@@ -1,15 +1,9 @@
 <mddoc>
 	<docpage target="README.md">
 		<section title="PHP INI Builder">
-			<badge src="https://poser.pugx.org/donatj/php-ini-builder/v/stable.svg"
-				   href="https://packagist.org/packages/donatj/php-ini-builder"
-				   alt="Latest Stable Version"/>
-			<badge src="https://poser.pugx.org/donatj/php-ini-builder/license.png"
-				   href="https://packagist.org/packages/donatj/php-ini-builder"
-				   alt="License"/>
-			<badge src="https://travis-ci.org/donatj/PhpIniBuilder.svg?branch=master"
-				   href="https://travis-ci.org/donatj/PhpIniBuilder"
-				   alt="Build Status"/>
+			<badge-poser type="version" />
+			<badge-poser type="license" />
+			<badge-travis name="donatj/PhpIniBuilder" />
 			<badge src="https://scrutinizer-ci.com/g/donatj/PhpIniBuilder/badges/quality-score.png?b=master"
 				   href="https://scrutinizer-ci.com/g/donatj/PhpIniBuilder/?branch=master"
 				   alt="Scrutinizer Code Quality"/>
