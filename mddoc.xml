@@ -1,33 +1,29 @@
 <mddoc>
-	<docpage target="README.md" autoloader="psr0" autoloader-root="src">
+	<docpage target="README.md">
 		<section title="PHP INI Builder">
+			<badge src="https://poser.pugx.org/donatj/php-ini-builder/v/stable.svg"
+				   href="https://packagist.org/packages/donatj/php-ini-builder"
+				   alt="Latest Stable Version"/>
+			<badge src="https://poser.pugx.org/donatj/php-ini-builder/license.png"
+				   href="https://packagist.org/packages/donatj/php-ini-builder"
+				   alt="License"/>
+			<badge src="https://travis-ci.org/donatj/PhpIniBuilder.svg?branch=master"
+				   href="https://travis-ci.org/donatj/PhpIniBuilder"
+				   alt="Build Status"/>
+			<badge src="https://scrutinizer-ci.com/g/donatj/PhpIniBuilder/badges/quality-score.png?b=master"
+				   href="https://scrutinizer-ci.com/g/donatj/PhpIniBuilder/?branch=master"
+				   alt="Scrutinizer Code Quality"/>
 			<text><![CDATA[
-[![Latest Stable Version](https://poser.pugx.org/donatj/php-ini-builder/v/stable.png)](https://packagist.org/packages/donatj/php-ini-builder)
-[![License](https://poser.pugx.org/donatj/php-ini-builder/license.png)](https://packagist.org/packages/donatj/php-ini-builder)
-[![Build Status](https://travis-ci.org/donatj/PhpIniBuilder.svg?branch=master)](https://travis-ci.org/donatj/PhpIniBuilder)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/donatj/PhpIniBuilder/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/donatj/PhpIniBuilder/?branch=master)
-
 Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from associative arrays.]]></text>
 			<section title="Requirements">
-				<text>- PHP 5.3+</text>
+				<composer-requires/>
 			</section>
 			<section title="Installing">
-				<text><![CDATA[
-
-PHP INI Builder is available through Packagist via Composer
-
-```json
-{
-    "require": {
-        "donatj/php-ini-builder": "~0.1.3"
-    }
-}
-```
-				]]></text>
+				<composer-install/>
 			</section>
 			<section title="Example">
 				<text>Here is a simple example script:</text>
-				<source name="example/example.php" lang="php" />
+				<source name="example/example.php" lang="php"/>
 				<text>Which outputs:</text>
 				<source lang="php"><![CDATA[[Title]
 str = 'awesome'
@@ -45,7 +41,9 @@ arr[key] = 'f'
 ]]></source>
 			</section>
 			<section title="Documentation">
-				<file name="src/Builder.php" />
+				<docpage target="DOCS.md" autoloader="psr0" autoloader-root="src">
+					<file name="src/Builder.php"/>
+				</docpage>
 			</section>
 		</section>
 	</docpage>
