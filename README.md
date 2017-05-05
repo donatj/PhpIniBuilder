@@ -1,6 +1,10 @@
 # PHP INI Builder
 
-[![Latest Stable Version](https://poser.pugx.org/donatj/php-ini-builder/v/stable.svg)](https://packagist.org/packages/donatj/php-ini-builder)[![License](https://poser.pugx.org/donatj/php-ini-builder/license.png)](https://packagist.org/packages/donatj/php-ini-builder)[![Build Status](https://travis-ci.org/donatj/PhpIniBuilder.svg?branch=master)](https://travis-ci.org/donatj/PhpIniBuilder)[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/donatj/PhpIniBuilder/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/donatj/PhpIniBuilder/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/donatj/php-ini-builder/v/stable.svg)](https://packagist.org/packages/donatj/php-ini-builder)
+[![License](https://poser.pugx.org/donatj/php-ini-builder/license.png)](https://packagist.org/packages/donatj/php-ini-builder)
+[![Build Status](https://travis-ci.org/donatj/PhpIniBuilder.svg?branch=master)](https://travis-ci.org/donatj/PhpIniBuilder)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/donatj/PhpIniBuilder/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/donatj/PhpIniBuilder/?branch=master)
+
 
 Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from associative arrays.
 
