@@ -1,8 +1,12 @@
-## Class: Builder \[ `\donatj\Ini` \]
+## Class: \donatj\Ini\Builder
 
 Utility for Converting An Array to a INI string
 
-### Method: `Builder->__construct([ $enableBool = true [, $enableNumeric = true [, $enableAlphaNumeric = true [, $skipNullValues = false]]]])`
+### Method: Builder->__construct
+
+```php
+function __construct([ $enableBool = true [, $enableNumeric = true [, $enableAlphaNumeric = true [, $skipNullValues = false]]]])
+```
 
 #### Parameters:
 
@@ -13,7 +17,11 @@ Utility for Converting An Array to a INI string
 
 ---
 
-### Method: `Builder->generate($data)`
+### Method: Builder->generate
+
+```php
+function generate($data)
+```
 
 INI String Result
 
@@ -27,7 +35,11 @@ INI String Result
 
 ---
 
-### Method: `Builder->__invoke($data)`
+### Method: Builder->__invoke
+
+```php
+function __invoke($data)
+```
 
 #### Parameters:
 
@@ -39,7 +51,11 @@ INI String Result
 
 ---
 
-### Method: `Builder->escape($value)`
+### Method: Builder->escape
+
+```php
+function escape($value)
+```
 
 Escapes Values According to Currently Set Rules
 
@@ -53,7 +69,11 @@ Escapes Values According to Currently Set Rules
 
 ---
 
-### Method: `Builder->enableBoolDetection($enableBool)`
+### Method: Builder->enableBoolDetection
+
+```php
+function enableBoolDetection($enableBool)
+```
 
 Enable / Disable Automatic Boolean Detection  
 PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same values  
@@ -66,7 +86,11 @@ as `true` / `false`
 
 ---
 
-### Method: `Builder->enableNumericDetection($enableNumeric)`
+### Method: Builder->enableNumericDetection
+
+```php
+function enableNumericDetection($enableNumeric)
+```
 
 Enable / Disable Automatic Numeric Detection  
 PHP's built in `parse_ini_*` methods parse all values to string. Enabling this option enables numeric detection  
@@ -78,7 +102,11 @@ so they will be output once again as floats/ints
 
 ---
 
-### Method: `Builder->enableAlphaNumericDetection($enableAlphaNumeric)`
+### Method: Builder->enableAlphaNumericDetection
+
+```php
+function enableAlphaNumericDetection($enableAlphaNumeric)
+```
 
 Enable / Disable Automatic AlphaNumeric Detection  
 PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces. Enabling  
@@ -90,7 +118,11 @@ this option removes the quotation marks on said simple strings.
 
 ---
 
-### Method: `Builder->enableSkipNullValues($skipNullValues)`
+### Method: Builder->enableSkipNullValues
+
+```php
+function enableSkipNullValues($skipNullValues)
+```
 
 Enable / Disable Skipping Null Values  
 When enabled, null values will be skipped.

@@ -4,9 +4,7 @@
 			<badge-poser type="version" />
 			<badge-poser type="license" />
 			<badge-travis name="donatj/PhpIniBuilder" />
-			<badge src="https://scrutinizer-ci.com/g/donatj/PhpIniBuilder/badges/quality-score.png?b=master"
-				   href="https://scrutinizer-ci.com/g/donatj/PhpIniBuilder/?branch=master"
-				   alt="Scrutinizer Code Quality"/>
+			<badge-scrutinizer type="quality" name="donatj/PhpIniBuilder" />
 			<text><![CDATA[
 Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from associative arrays.]]></text>
 			<section title="Requirements">
