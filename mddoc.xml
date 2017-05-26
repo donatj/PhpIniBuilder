@@ -35,6 +35,7 @@ arr[key] = 'f'
 			<section title="Documentation">
 				<docpage target="DOCS.md" autoloader="psr0" autoloader-root="src">
 					<file name="src/Builder.php"/>
+					<file name="src/ExceededMaxDepthException.php"/>
 				</docpage>
 			</section>
 		</section>

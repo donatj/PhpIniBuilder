@@ -130,3 +130,7 @@ When enabled, null values will be skipped.
 #### Parameters:
 
 - ***boolean*** `$skipNullValues`
+
+## Class: \donatj\Ini\ExceededMaxDepthException
+
+Exception thrown when the max depth supported by INI is exceeded.

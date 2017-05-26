@@ -2,6 +2,11 @@
 
 namespace donatj\Ini;
 
-class ExceededMaxDepthException extends \Exception {
+/**
+ * Exception thrown when the max depth supported by INI is exceeded.
+ *
+ * @package donatj\Ini
+ */
+class ExceededMaxDepthException extends \DomainException {
 
 }
