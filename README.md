@@ -11,6 +11,7 @@ Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from ass
 ## Requirements
 
 - **php**: >=5.3.0
+- **ext-ctype**: *
 
 ## Installing
 
