@@ -68,18 +68,20 @@ class Builder {
 	 * @throws ExceededMaxDepthException
 	 */
 	protected function build( array $data, $depth = 0, $prevKey = null ) {
-		$valueOutput = "";
-		$arrayOutput = "";
+		$valueOutput = '';
+		$arrayOutput = '';
 
 		if( $depth > 2 ) {
-			throw new ExceededMaxDepthException("Max INI Depth of 2 Exceeded");
+			throw new ExceededMaxDepthException('Max INI Depth of 2 Exceeded');
 		}
 
 		$position = 0;
 		foreach( $data as $key => $val ) {
 			if( $this->skipNullValues && $val === null ) {
 				continue;
-			} elseif( is_array($val) ) {
+			}
+
+			if( is_array($val) ) {
 				if( $depth == 0 ) {
 					$arrayOutput .= "\n[{$key}]\n";
 				}
@@ -122,7 +124,9 @@ class Builder {
 		if( $this->enableBool ) {
 			if( $value == '' ) {
 				return 'false';
-			} elseif( $value == '1' ) {
+			}
+
+			if( $value == '1' ) {
 				return 'true';
 			}
 		}
