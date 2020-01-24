@@ -20,7 +20,7 @@ function __construct([ $enableBool = true [, $enableNumeric = true [, $enableAlp
 ### Method: Builder->generate
 
 ```php
-function generate($data)
+function generate(array $data)
 ```
 
 INI String Result
@@ -38,7 +38,7 @@ INI String Result
 ### Method: Builder->__invoke
 
 ```php
-function __invoke($data)
+function __invoke(array $data)
 ```
 
 #### Parameters:
@@ -76,6 +76,7 @@ function enableBoolDetection($enableBool)
 ```
 
 Enable / Disable Automatic Boolean Detection  
+  
 PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same values  
 when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be output  
 as `true` / `false`
@@ -93,12 +94,13 @@ function enableNumericDetection($enableNumeric)
 ```
 
 Enable / Disable Automatic Numeric Detection  
+  
 PHP's built in `parse_ini_*` methods parse all values to string. Enabling this option enables numeric detection  
 so they will be output once again as floats/ints
 
 #### Parameters:
 
-- ***boolean*** `$enableNumeric`
+- ***bool*** `$enableNumeric`
 
 ---
 
@@ -109,12 +111,13 @@ function enableAlphaNumericDetection($enableAlphaNumeric)
 ```
 
 Enable / Disable Automatic AlphaNumeric Detection  
+  
 PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces. Enabling  
 this option removes the quotation marks on said simple strings.
 
 #### Parameters:
 
-- ***boolean*** `$enableAlphaNumeric`
+- ***bool*** `$enableAlphaNumeric`
 
 ---
 
@@ -125,11 +128,12 @@ function enableSkipNullValues($skipNullValues)
 ```
 
 Enable / Disable Skipping Null Values  
+  
 When enabled, null values will be skipped.
 
 #### Parameters:
 
-- ***boolean*** `$skipNullValues`
+- ***bool*** `$skipNullValues`
 
 ## Class: \donatj\Ini\ExceededMaxDepthException
 
