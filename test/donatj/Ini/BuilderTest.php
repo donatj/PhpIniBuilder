@@ -81,6 +81,37 @@ class BuilderTest extends \PHPUnit_Framework_TestCase {
 
 	}
 
+	public function testReservedWordSEscape() {
+		$builder = new Builder();
+
+		$data = array(
+			'true_string'  => 'true',
+			'true_string2' => 'TRUE',
+			'true_literal' => true,
+
+			'false_string'  => 'false',
+			'false_string2' => 'FALSE',
+			'false_literal' => false,
+
+			'null_string'  => 'null',
+			'null_string2' => 'NULL',
+			'null_literal' => null,
+		);
+
+		$this->assertEquals(trim(<<<TAG
+true_string = 'true'
+true_string2 = 'TRUE'
+true_literal = true
+false_string = 'false'
+false_string2 = 'FALSE'
+false_literal = false
+null_string = 'null'
+null_string2 = 'NULL'
+null_literal = false
+TAG
+		), trim($builder->generate($data)));
+	}
+
 	private function arrays_are_similar( $aSide, $bSide ) {
 
 		$keys = array_unique(array_merge(
