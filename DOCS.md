@@ -77,9 +77,9 @@ function enableBoolDetection($enableBool)
 
 Enable / Disable Automatic Boolean Detection  
   
-PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same values  
-when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be output  
-as `true` / `false`
+PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same  
+values when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be  
+output as `true` / `false`
 
 #### Parameters:
 
@@ -112,8 +112,8 @@ function enableAlphaNumericDetection($enableAlphaNumeric)
 
 Enable / Disable Automatic AlphaNumeric Detection  
   
-PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces. Enabling  
-this option removes the quotation marks on said simple strings.
+PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces.  
+Enabling this option removes the quotation marks on said simple strings.
 
 #### Parameters:
 

@@ -10,6 +10,13 @@ namespace donatj\Ini;
 class Builder {
 
 	/**
+	 * List of INI Reserved Words
+	 *
+	 * @var string[]
+	 */
+	private $reserved = array( 'true', 'false', 'null' );
+
+	/**
 	 * @var bool
 	 */
 	protected $enableBool;
@@ -135,7 +142,7 @@ class Builder {
 			return (string)$value;
 		}
 
-		if( $this->enableAlphaNumeric && is_string($value) && ctype_alnum($value) && !is_numeric($value) ) {
+		if( $this->enableAlphaNumeric && is_string($value) && ctype_alnum($value) && !is_numeric($value) && !in_array(strtolower($value), $this->reserved) ) {
 			return (string)$value;
 		}
 
@@ -145,9 +152,9 @@ class Builder {
 	/**
 	 * Enable / Disable Automatic Boolean Detection
 	 *
-	 * PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same values
-	 * when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be output
-	 * as `true` / `false`
+	 * PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same
+	 * values when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be
+	 * output as `true` / `false`
 	 *
 	 * @param bool $enableBool
 	 */
@@ -170,8 +177,8 @@ class Builder {
 	/**
 	 * Enable / Disable Automatic AlphaNumeric Detection
 	 *
-	 * PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces. Enabling
-	 * this option removes the quotation marks on said simple strings.
+	 * PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces.
+	 * Enabling this option removes the quotation marks on said simple strings.
 	 *
 	 * @param boolean $enableAlphaNumeric
 	 */
