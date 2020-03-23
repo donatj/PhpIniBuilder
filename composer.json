@@ -13,7 +13,9 @@
 	"authors": [
 		{
 			"name": "Jesse Donat",
-			"email": "donatj@gmail.com"
+			"email": "donatj@gmail.com",
+			"homepage": "https://donatstudios.com",
+			"role": "Developer"
 		}
 	],
 	"autoload": {
