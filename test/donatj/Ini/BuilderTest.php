@@ -3,16 +3,21 @@
 namespace donatj\Ini\Test;
 
 use donatj\Ini\Builder;
+use donatj\Ini\ExceededMaxDepthException;
 use PHPUnit\Framework\TestCase;
 
 class BuilderTest extends TestCase {
 
 	public function testMaxDepthException() {
-		$this->expectException('\donatj\Ini\ExceededMaxDepthException');
+		try {
+			$data    = array( 'x' => array( 'y' => array( 'z' => array( 'a' => 1 ) ) ) );
+			$builder = new Builder();
+			$builder->generate($data);
+		}catch(ExceededMaxDepthException $ex) {
+			return;
+		}
 
-		$data    = array( 'x' => array( 'y' => array( 'z' => array( 'a' => 1 ) ) ) );
-		$builder = new Builder();
-		$builder->generate($data);
+		self::fail('Expected ExceededMaxDepthException');
 	}
 
 	public function testEnableBoolDetection() {
