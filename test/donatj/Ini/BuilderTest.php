@@ -3,40 +3,45 @@
 namespace donatj\Ini\Test;
 
 use donatj\Ini\Builder;
+use donatj\Ini\ExceededMaxDepthException;
+use PHPUnit\Framework\TestCase;
 
-class BuilderTest extends \PHPUnit_Framework_TestCase {
+class BuilderTest extends TestCase {
 
-	/**
-	 * @expectedException \donatj\Ini\ExceededMaxDepthException
-	 */
 	public function testMaxDepthException() {
-		$data    = array( 'x' => array( 'y' => array( 'z' => array( 'a' => 1 ) ) ) );
-		$builder = new Builder();
-		$builder->generate($data);
+		try {
+			$data    = array( 'x' => array( 'y' => array( 'z' => array( 'a' => 1 ) ) ) );
+			$builder = new Builder();
+			$builder->generate($data);
+		}catch(ExceededMaxDepthException $ex) {
+			return;
+		}
+
+		self::fail('Expected ExceededMaxDepthException');
 	}
 
 	public function testEnableBoolDetection() {
 		$builder = new Builder();
-		$this->assertStringEndsWith("true", $builder->generate(array( 'x' => 1 )));
+		self::assertStringEndsWith("true", $builder->generate(array( 'x' => 1 )));
 
 		$builder->enableBoolDetection(false);
-		$this->assertStringEndsWith("1", $builder->generate(array( 'x' => 1 )));
+		self::assertStringEndsWith("1", $builder->generate(array( 'x' => 1 )));
 	}
 
 	public function testEnableNumericDetection() {
 		// Integer
 		$builder = new Builder();
-		$this->assertStringEndsWith("7", $builder->generate(array( 'x' => 7 )));
+		self::assertStringEndsWith("7", $builder->generate(array( 'x' => 7 )));
 
 		$builder->enableNumericDetection(false);
-		$this->assertStringEndsWith("'7'", $builder->generate(array( 'x' => 7 )));
+		self::assertStringEndsWith("'7'", $builder->generate(array( 'x' => 7 )));
 
 		// Float
 		$builder->enableNumericDetection(true);
-		$this->assertStringEndsWith("3.14159265", $builder->generate(array( 'x' => 3.14159265 )));
+		self::assertStringEndsWith("3.14159265", $builder->generate(array( 'x' => 3.14159265 )));
 
 		$builder->enableNumericDetection(false);
-		$this->assertStringEndsWith("'3.14159265'", $builder->generate(array( 'x' => 3.14159265 )));
+		self::assertStringEndsWith("'3.14159265'", $builder->generate(array( 'x' => 3.14159265 )));
 	}
 
 	public function testNumericIndex() {
@@ -44,7 +49,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase {
 		$data    = array( 'x' => array( 'y' => array( 'a' => 'test', '2', '3', '4', 6 => '4', '7', 5 => 'bbq', 'bbq' => 'soda' ) ) );
 		$builder = new Builder();
 
-		$this->assertSame($data, parse_ini_string($builder->generate($data), true));
+		self::assertSame($data, parse_ini_string($builder->generate($data), true));
 	}
 
 	public function testLateRootValues() {
@@ -56,7 +61,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase {
 			'late' => 'value',
 		);
 
-		$this->assertTrue($this->arrays_are_similar(parse_ini_string($builder->generate($data), true), $data), 'Assert Late Root Keys Will be Processed');
+		self::assertTrue($this->arrays_are_similar(parse_ini_string($builder->generate($data), true), $data), 'Assert Late Root Keys Will be Processed');
 	}
 
 	public function testSkipNullValues() {
@@ -72,7 +77,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		//demands empty x,skip index 2, no other
-		$this->assertEquals(trim('[x]
+		self::assertEquals(trim('[x]
 
 [y]
 0 = true
@@ -98,7 +103,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase {
 			'null_literal' => null,
 		);
 
-		$this->assertEquals(trim(<<<TAG
+		self::assertEquals(trim(<<<TAG
 true_string = 'true'
 true_string2 = 'TRUE'
 true_literal = true
@@ -144,4 +149,3 @@ TAG
 	}
 
 }
- 
