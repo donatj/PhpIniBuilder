@@ -9,10 +9,8 @@ class Builder {
 
 	/**
 	 * List of INI Reserved Words
-	 *
-	 * @var string[]
 	 */
-	private $reserved = [ 'true', 'false', 'null' ];
+	private const RESERVED = [ 'true', 'false', 'null' ];
 
 	/** @var bool */
 	protected $enableBool;
@@ -128,7 +126,12 @@ class Builder {
 			return (string)$value;
 		}
 
-		if( $this->enableAlphaNumeric && is_string($value) && ctype_alnum($value) && !is_numeric($value) && !in_array(strtolower($value), $this->reserved) ) {
+		if( $this->enableAlphaNumeric
+			&& is_string($value)
+			&& ctype_alnum($value)
+			&& !is_numeric($value)
+			&& !in_array(strtolower($value), self::RESERVED)
+		) {
 			return (string)$value;
 		}
 
