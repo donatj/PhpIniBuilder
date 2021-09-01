@@ -3,3 +3,4 @@ composer.lock
 test.php
 vendor/
 phpunit.xml
+*.cache
