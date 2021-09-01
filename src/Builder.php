@@ -4,8 +4,6 @@ namespace donatj\Ini;
 
 /**
  * Utility for Converting An Array to a INI string
- *
- * @package donatj\Ini
  */
 class Builder {
 
@@ -14,32 +12,29 @@ class Builder {
 	 *
 	 * @var string[]
 	 */
-	private $reserved = array( 'true', 'false', 'null' );
+	private $reserved = [ 'true', 'false', 'null' ];
 
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	protected $enableBool;
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	protected $enableNumeric;
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	protected $enableAlphaNumeric;
-	/**
-	 * @var bool
-	 */
+	/** @var bool */
 	protected $skipNullValues;
 
 	/**
-	 * @param bool $enableBool
-	 * @param bool $enableNumeric
-	 * @param bool $enableAlphaNumeric
-	 * @param bool $skipNullValues
+	 * @param bool $enableBool Enable automatic boolean detection?
+	 * @param bool $enableNumeric Enable automatic numeric detection?
+	 * @param bool $enableAlphaNumeric Enable automatic alpha-numeric detection?
+	 * @param bool $skipNullValues Skip null values?
 	 */
-	public function __construct( $enableBool = true, $enableNumeric = true, $enableAlphaNumeric = true, $skipNullValues = false ) {
+	public function __construct(
+		bool $enableBool = true,
+		bool $enableNumeric = true,
+		bool $enableAlphaNumeric = true,
+		bool $skipNullValues = false
+	) {
 		$this->enableBool         = $enableBool;
 		$this->enableNumeric      = $enableNumeric;
 		$this->enableAlphaNumeric = $enableAlphaNumeric;
@@ -49,32 +44,23 @@ class Builder {
 	/**
 	 * INI String Result
 	 *
-	 * @param array $data
-	 * @return string
 	 * @throws ExceededMaxDepthException
 	 */
-	public function generate( array $data ) {
+	public function generate( array $data ) : string {
 		return $this->build($data);
 	}
 
-	/**
-	 * @param array $data
-	 * @return string
-	 */
-	public function __invoke( array $data ) {
+	public function __invoke( array $data ) : string {
 		return $this->generate($data);
 	}
 
 	/**
 	 * Recursive build function
 	 *
-	 * @param array                 $data
-	 * @param int                   $depth
-	 * @param null|int|float|string $prevKey
-	 * @return string
+	 * @param int|string $prevKey
 	 * @throws ExceededMaxDepthException
 	 */
-	protected function build( array $data, $depth = 0, $prevKey = null ) {
+	protected function build( array $data, int $depth = 0, $prevKey = null ) : string {
 		$valueOutput = '';
 		$arrayOutput = '';
 
@@ -92,6 +78,7 @@ class Builder {
 				if( $depth == 0 ) {
 					$arrayOutput .= "\n[{$key}]\n";
 				}
+
 				$arrayOutput .= $this->build($val, $depth + 1, $key);
 			} else {
 				$valStr = $this->escape($val);
@@ -122,10 +109,9 @@ class Builder {
 	/**
 	 * Escapes Values According to Currently Set Rules
 	 *
-	 * @param mixed $value
-	 * @return string
+	 * @param float|int|string|bool|null $value
 	 */
-	public function escape( $value ) {
+	public function escape( $value ) : string {
 		$value = (string)$value;
 
 		if( $this->enableBool ) {
@@ -155,10 +141,8 @@ class Builder {
 	 * PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same
 	 * values when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be
 	 * output as `true` / `false`
-	 *
-	 * @param bool $enableBool
 	 */
-	public function enableBoolDetection( $enableBool ) {
+	public function enableBoolDetection( bool $enableBool ) : void {
 		$this->enableBool = $enableBool;
 	}
 
@@ -167,10 +151,8 @@ class Builder {
 	 *
 	 * PHP's built in `parse_ini_*` methods parse all values to string. Enabling this option enables numeric detection
 	 * so they will be output once again as floats/ints
-	 *
-	 * @param boolean $enableNumeric
 	 */
-	public function enableNumericDetection( $enableNumeric ) {
+	public function enableNumericDetection( bool $enableNumeric ) : void {
 		$this->enableNumeric = $enableNumeric;
 	}
 
@@ -179,10 +161,8 @@ class Builder {
 	 *
 	 * PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces.
 	 * Enabling this option removes the quotation marks on said simple strings.
-	 *
-	 * @param boolean $enableAlphaNumeric
 	 */
-	public function enableAlphaNumericDetection( $enableAlphaNumeric ) {
+	public function enableAlphaNumericDetection( bool $enableAlphaNumeric ) : void {
 		$this->enableAlphaNumeric = $enableAlphaNumeric;
 	}
 
@@ -190,10 +170,8 @@ class Builder {
 	 * Enable / Disable Skipping Null Values
 	 *
 	 * When enabled, null values will be skipped.
-	 *
-	 * @param boolean $skipNullValues
 	 */
-	public function enableSkipNullValues( $skipNullValues ) {
+	public function enableSkipNullValues( bool $skipNullValues ) : void {
 		$this->skipNullValues = $skipNullValues;
 	}
 

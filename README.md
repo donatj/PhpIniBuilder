@@ -10,7 +10,7 @@ Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from ass
 
 ## Requirements
 
-- **php**: >=5.3.0
+- **php**: >=7.1
 - **ext-ctype**: *
 
 ## Installing
@@ -28,24 +28,25 @@ Here is a simple example script:
 ```php
 <?php
 
-require(__DIR__ . '/../vendor/autoload.php');
+require __DIR__ . '/../vendor/autoload.php';
 
-$data = array(
-	'Title' => array(
+$data = [
+	'Title' => [
 		'str' => 'awesome',
 		'int' => 7,
 		'flt' => 10.2,
-	),
-	'Title 2' => array(
+	],
+	'Title 2' => [
 		'bool' => true,
-		'arr' => array(
-			'a', 'b', 'c', 6 => 'd', 'e', 'key' => 'f'
-		)
-	)
-);
+		'arr' => [
+			'a', 'b', 'c', 6 => 'd', 'e', 'key' => 'f',
+		],
+	],
+];
 
-$x = new \donatj\Ini\Builder();
+$x = new \donatj\Ini\Builder;
 echo $x->generate($data);
+
 ```
 
 Which outputs:
