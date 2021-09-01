@@ -8,76 +8,72 @@ use PHPUnit\Framework\TestCase;
 
 class BuilderTest extends TestCase {
 
-	public function testMaxDepthException() {
-		try {
-			$data    = array( 'x' => array( 'y' => array( 'z' => array( 'a' => 1 ) ) ) );
-			$builder = new Builder();
-			$builder->generate($data);
-		}catch(ExceededMaxDepthException $ex) {
-			return;
-		}
+	public function testMaxDepthException() : void {
+		$this->expectException(ExceededMaxDepthException::class);
 
-		self::fail('Expected ExceededMaxDepthException');
+		$data    = [ 'x' => [ 'y' => [ 'z' => [ 'a' => 1 ] ] ] ];
+		$builder = new Builder;
+		$builder->generate($data);
 	}
 
-	public function testEnableBoolDetection() {
-		$builder = new Builder();
-		self::assertStringEndsWith("true", $builder->generate(array( 'x' => 1 )));
+	public function testEnableBoolDetection() : void {
+		$builder = new Builder;
+		$this->assertStringEndsWith("true", $builder->generate([ 'x' => 1 ]));
 
 		$builder->enableBoolDetection(false);
-		self::assertStringEndsWith("1", $builder->generate(array( 'x' => 1 )));
+		$this->assertStringEndsWith("1", $builder->generate([ 'x' => 1 ]));
 	}
 
-	public function testEnableNumericDetection() {
+	public function testEnableNumericDetection() : void {
 		// Integer
-		$builder = new Builder();
-		self::assertStringEndsWith("7", $builder->generate(array( 'x' => 7 )));
+		$builder = new Builder;
+		$this->assertStringEndsWith("7", $builder->generate([ 'x' => 7 ]));
 
 		$builder->enableNumericDetection(false);
-		self::assertStringEndsWith("'7'", $builder->generate(array( 'x' => 7 )));
+		$this->assertStringEndsWith("'7'", $builder->generate([ 'x' => 7 ]));
 
 		// Float
 		$builder->enableNumericDetection(true);
-		self::assertStringEndsWith("3.14159265", $builder->generate(array( 'x' => 3.14159265 )));
+		$this->assertStringEndsWith("3.14159265", $builder->generate([ 'x' => 3.14159265 ]));
 
 		$builder->enableNumericDetection(false);
-		self::assertStringEndsWith("'3.14159265'", $builder->generate(array( 'x' => 3.14159265 )));
+		$this->assertStringEndsWith("'3.14159265'", $builder->generate([ 'x' => 3.14159265 ]));
 	}
 
-	public function testNumericIndex() {
+	public function testNumericIndex() : void {
 
-		$data    = array( 'x' => array( 'y' => array( 'a' => 'test', '2', '3', '4', 6 => '4', '7', 5 => 'bbq', 'bbq' => 'soda' ) ) );
-		$builder = new Builder();
+		$data    = [ 'x' => [ 'y' => [ 'a' => 'test', '2', '3', '4', 6 => '4', '7', 5 => 'bbq', 'bbq' => 'soda' ] ] ];
+		$builder = new Builder;
 
-		self::assertSame($data, parse_ini_string($builder->generate($data), true));
+		$this->assertSame($data, parse_ini_string($builder->generate($data), true));
 	}
 
-	public function testLateRootValues() {
-		$builder = new Builder();
-		$data    = array(
-			'x'    => array(
-				'y' => 'testValue'
-			),
+	public function testLateRootValues() : void {
+		$builder = new Builder;
+		$data    = [
+			'x'    => [
+				'y' => 'testValue',
+			],
 			'late' => 'value',
-		);
+		];
 
-		self::assertTrue($this->arrays_are_similar(parse_ini_string($builder->generate($data), true), $data), 'Assert Late Root Keys Will be Processed');
+		$this->assertTrue($this->arrays_are_similar(parse_ini_string($builder->generate($data), true), $data), 'Assert Late Root Keys Will be Processed');
 	}
 
-	public function testSkipNullValues() {
-		$builder = new Builder();
+	public function testSkipNullValues() : void {
+		$builder = new Builder;
 		$builder->enableSkipNullValues(true);
 
-		$data = array(
-			'x'     => array(
+		$data = [
+			'x'     => [
 				'z' => null,
-			),
-			'y'     => array( 1, 2, null, 3 ),
+			],
+			'y'     => [ 1, 2, null, 3 ],
 			'other' => null,
-		);
+		];
 
 		//demands empty x,skip index 2, no other
-		self::assertEquals(trim('[x]
+		$this->assertEquals(trim('[x]
 
 [y]
 0 = true
@@ -86,10 +82,10 @@ class BuilderTest extends TestCase {
 
 	}
 
-	public function testReservedWordSEscape() {
-		$builder = new Builder();
+	public function testReservedWordSEscape() : void {
+		$builder = new Builder;
 
-		$data = array(
+		$data = [
 			'true_string'  => 'true',
 			'true_string2' => 'TRUE',
 			'true_literal' => true,
@@ -101,9 +97,9 @@ class BuilderTest extends TestCase {
 			'null_string'  => 'null',
 			'null_string2' => 'NULL',
 			'null_literal' => null,
-		);
+		];
 
-		self::assertEquals(trim(<<<TAG
+		$this->assertEquals(trim(<<<'TAG'
 true_string = 'true'
 true_string2 = 'TRUE'
 true_literal = true
@@ -117,7 +113,7 @@ TAG
 		), trim($builder->generate($data)));
 	}
 
-	private function arrays_are_similar( $aSide, $bSide ) {
+	private function arrays_are_similar( array $aSide, array $bSide ) : bool {
 
 		$keys = array_unique(array_merge(
 			array_keys($aSide),
