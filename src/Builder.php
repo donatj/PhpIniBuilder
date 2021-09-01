@@ -48,6 +48,7 @@ class Builder {
 
 	/**
 	 * Same as `generate` - exists to make Builder callable.
+	 *
 	 * @see self::generate
 	 */
 	public function __invoke( array $data ) : string {
