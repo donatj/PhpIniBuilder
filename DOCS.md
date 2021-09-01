@@ -27,7 +27,13 @@ INI String Result
 
 ---
 
-## Undocumented Method: `Builder->__invoke(array $data)`
+## Method: Builder->__invoke
+
+```php
+function __invoke(array $data) : string
+```
+
+Same as `generate` - exists to make Builder callable.
 
 ---
 
@@ -41,7 +47,7 @@ Escapes Values According to Currently Set Rules
 
 ### Parameters:
 
-- ***float*** | ***int*** | ***string*** | ***bool*** | ***null*** `$value`
+- ***bool*** | ***float*** | ***int*** | ***string*** | ***null*** `$value`
 
 ---
 

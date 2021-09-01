@@ -7,9 +7,7 @@ namespace donatj\Ini;
  */
 class Builder {
 
-	/**
-	 * List of INI Reserved Words
-	 */
+	/** List of INI Reserved Words */
 	private const RESERVED = [ 'true', 'false', 'null' ];
 
 	/** @var bool */
@@ -22,10 +20,10 @@ class Builder {
 	protected $skipNullValues;
 
 	/**
-	 * @param bool $enableBool Enable automatic boolean detection?
-	 * @param bool $enableNumeric Enable automatic numeric detection?
+	 * @param bool $enableBool         Enable automatic boolean detection?
+	 * @param bool $enableNumeric      Enable automatic numeric detection?
 	 * @param bool $enableAlphaNumeric Enable automatic alpha-numeric detection?
-	 * @param bool $skipNullValues Skip null values?
+	 * @param bool $skipNullValues     Skip null values?
 	 */
 	public function __construct(
 		bool $enableBool = true,
@@ -48,6 +46,10 @@ class Builder {
 		return $this->build($data);
 	}
 
+	/**
+	 * Same as `generate` - exists to make Builder callable.
+	 * @see self::generate
+	 */
 	public function __invoke( array $data ) : string {
 		return $this->generate($data);
 	}
@@ -73,7 +75,7 @@ class Builder {
 			}
 
 			if( is_array($val) ) {
-				if( $depth == 0 ) {
+				if( $depth === 0 ) {
 					$arrayOutput .= "\n[{$key}]\n";
 				}
 
@@ -107,17 +109,17 @@ class Builder {
 	/**
 	 * Escapes Values According to Currently Set Rules
 	 *
-	 * @param float|int|string|bool|null $value
+	 * @param bool|float|int|string|null $value
 	 */
 	public function escape( $value ) : string {
 		$value = (string)$value;
 
 		if( $this->enableBool ) {
-			if( $value == '' ) {
+			if( $value === '' ) {
 				return 'false';
 			}
 
-			if( $value == '1' ) {
+			if( $value === '1' ) {
 				return 'true';
 			}
 		}
