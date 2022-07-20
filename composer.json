@@ -25,5 +25,10 @@
 		"psr-4": {
 			"donatj\\Ini\\": "src/"
 		}
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	}
 }
