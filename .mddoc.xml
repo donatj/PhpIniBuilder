@@ -3,8 +3,7 @@
 		<section title="PHP INI Builder">
 			<badge-poser type="version" />
 			<badge-poser type="license" />
-			<badge-travis name="donatj/PhpIniBuilder" />
-			<badge-scrutinizer type="quality" name="donatj/PhpIniBuilder" />
+			<badge-github-action name="donatj/phpUserAgent" workflow-file="ci.yml"/>
 			<text><![CDATA[
 Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from associative arrays.]]></text>
 			<section title="Requirements">
