@@ -81,25 +81,27 @@ class Builder {
 				}
 
 				$arrayOutput .= $this->build($val, $depth + 1, $key);
-			} else {
-				$valStr = $this->escape($val);
-				if( $depth > 1 ) {
-
-					if( $key !== $position ) {
-						if( ctype_digit((string)$key) ) {
-							$position = $key;
-						}
-
-						$valueOutput .= "{$prevKey}[{$key}] = {$valStr}\n";
-					} else {
-						$valueOutput .= "{$prevKey}[] = {$valStr}\n";
-					}
-
-					$position++;
-				} else {
-					$valueOutput .= "{$key} = {$valStr}\n";
-				}
+				continue;
 			}
+
+			$valStr = $this->escape($val);
+			if( $depth <= 1 ) {
+				$valueOutput .= "{$key} = {$valStr}\n";
+				continue;
+			}
+
+			if( $key === $position ) {
+				$valueOutput .= "{$prevKey}[] = {$valStr}\n";
+				continue;
+			}
+
+			if( ctype_digit((string)$key) ) {
+				$position = $key;
+			}
+
+			$valueOutput .= "{$prevKey}[{$key}] = {$valStr}\n";
+
+			$position++;
 		}
 
 		$output = "{$valueOutput}\n{$arrayOutput}";
