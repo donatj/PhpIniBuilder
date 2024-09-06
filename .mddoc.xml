@@ -19,10 +19,8 @@ Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from ass
 				<exec cmd="php example/example.php" format="code-block" lang="ini" />
 			</section>
 			<section title="Documentation">
-				<docpage target="DOCS.md" autoloader="psr0" autoloader-root="src">
-					<file name="src/Builder.php"/>
-					<file name="src/ExceededMaxDepthException.php"/>
-				</docpage>
+				<file name="src/Builder.php"/>
+				<file name="src/ExceededMaxDepthException.php"/>
 			</section>
 		</section>
 	</docpage>
