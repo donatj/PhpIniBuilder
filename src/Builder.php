@@ -69,8 +69,13 @@ class Builder {
 			throw new ExceededMaxDepthException('Max INI Depth of 2 Exceeded');
 		}
 
-		$position = 0;
+		$listMax = -1;
 		foreach( $data as $key => $val ) {
+			$prevMax = $listMax;
+			if( ctype_digit((string)$key) ) {
+				$listMax = max($listMax, (int)$key);
+			}
+
 			if( $this->skipNullValues && $val === null ) {
 				continue;
 			}
@@ -81,27 +86,24 @@ class Builder {
 				}
 
 				$arrayOutput .= $this->build($val, $depth + 1, $key);
+
 				continue;
 			}
 
 			$valStr = $this->escape($val);
 			if( $depth <= 1 ) {
 				$valueOutput .= "{$key} = {$valStr}\n";
+
 				continue;
 			}
 
-			if( $key === $position ) {
+			if( $key === $prevMax + 1 ) {
 				$valueOutput .= "{$prevKey}[] = {$valStr}\n";
-				continue;
-			}
 
-			if( ctype_digit((string)$key) ) {
-				$position = $key;
+				continue;
 			}
 
 			$valueOutput .= "{$prevKey}[{$key}] = {$valStr}\n";
-
-			$position++;
 		}
 
 		$output = "{$valueOutput}\n{$arrayOutput}";

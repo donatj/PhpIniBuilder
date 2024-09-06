@@ -79,7 +79,22 @@ class BuilderTest extends TestCase {
 0 = true
 1 = 2
 3 = 3'), trim($builder->generate($data)));
+	}
 
+	public function testListArray() : void {
+		$builder = new Builder;
+
+		$data = [ 'foo' => [ 'bar' => [ 'a', 2 => 'b', 1 => 'c', 'd' ] ] ];
+		$out  = $builder->generate($data);
+		$this->assertSame($data, parse_ini_string($out, true));
+
+		$data = [ 'bar' => [ 'a', 2 => 'b', 1 => 'c', 'd' ] ];
+		$out  = $builder->generate($data);
+		$this->assertSame($data, parse_ini_string($out, true));
+
+		$data = [ 'foo' => [ 'bar' => [ 'a', 2 => 'b', 1 => 'c', 'd' ] ] ];
+		$out  = $builder->generate($data);
+		$this->assertSame($data, parse_ini_string($out, true));
 	}
 
 	public function testReservedWordSEscape() : void {
@@ -142,6 +157,73 @@ TAG
 		}
 
 		return true;
+	}
+
+	/**
+	 * @dataProvider encodedDataProvider
+	 */
+	public function testEncoding( array $input, string $expected ) : void {
+		$builder = new Builder;
+		$this->assertEquals($expected, $builder->generate($input));
+	}
+
+	public static function encodedDataProvider() : array {
+		return [
+			[
+				[ 'foo' => 'bar' ],
+				'foo = bar',
+			],
+			[
+				[ 'foo' => [ 'bar' => 'baz' ] ],
+				<<<'INI'
+[foo]
+bar = baz
+INI
+				,
+			],
+			[
+				[ 'foo' => [ 'bar' => [ 'baz' => 'qux' ] ] ],
+				<<<'INI'
+[foo]
+bar[baz] = qux
+INI
+				,
+			],
+			[
+				[ 'foo' => [ 'bar' => [ 'a', 2 => 'b', 1 => 'c', 'd' ] ] ],
+				<<<'INI'
+[foo]
+bar[] = a
+bar[2] = b
+bar[1] = c
+bar[] = d
+INI
+				,
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider symmetryProvider
+	 */
+	public function testSymmetry( array $input ) : void {
+		$builder = new Builder;
+		$builder->enableNumericDetection(true);
+
+		$this->assertSame($input, parse_ini_string($builder->generate($input), true, INI_SCANNER_TYPED));
+	}
+
+	public static function symmetryProvider() : array {
+		$out = [
+			[ [ 'foo' => 7 ] ],
+		];
+
+		$base = self::encodedDataProvider();
+		foreach( $base as $data ) {
+			$out[] = [ $data[0] ];
+		}
+
+		return $out;
 	}
 
 }
