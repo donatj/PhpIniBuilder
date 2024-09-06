@@ -51,21 +51,22 @@ echo $builder->generate($data);
 
 Which outputs:
 
-```php
+```ini
 [Title]
-str = 'awesome'
+str = awesome
 int = 7
 flt = 10.2
 
+
 [Title 2]
 bool = true
-arr[] = 'a'
-arr[] = 'b'
-arr[] = 'c'
-arr[6] = 'd'
-arr[] = 'e'
-arr[key] = 'f'
 
+arr[] = a
+arr[] = b
+arr[] = c
+arr[6] = d
+arr[] = e
+arr[key] = f
 ```
 
 ## Documentation

@@ -16,20 +16,7 @@ Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from ass
 				<text>Here is a simple example script:</text>
 				<source name="example/example.php" lang="php"/>
 				<text>Which outputs:</text>
-				<source lang="php"><![CDATA[[Title]
-str = 'awesome'
-int = 7
-flt = 10.2
-
-[Title 2]
-bool = true
-arr[] = 'a'
-arr[] = 'b'
-arr[] = 'c'
-arr[6] = 'd'
-arr[] = 'e'
-arr[key] = 'f'
-]]></source>
+				<exec cmd="php example/example.php" format="code-block" lang="ini" />
 			</section>
 			<section title="Documentation">
 				<docpage target="DOCS.md" autoloader="psr0" autoloader-root="src">
