@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/donatj/php-ini-builder/version)](https://packagist.org/packages/donatj/php-ini-builder)
 [![License](https://poser.pugx.org/donatj/php-ini-builder/license)](https://packagist.org/packages/donatj/php-ini-builder)
-[![ci.yml](https://github.com/donatj/phpUserAgent/actions/workflows/ci.yml/badge.svg?)](https://github.com/donatj/phpUserAgent/actions/workflows/ci.yml)
+[![ci.yml](https://github.com/donatj/phpUserAgent/actions/workflows/ci.yml/badge.svg)](https://github.com/donatj/phpUserAgent/actions/workflows/ci.yml)
 
 
 Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from associative arrays.

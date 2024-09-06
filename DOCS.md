@@ -1,4 +1,4 @@
-# Class: \donatj\Ini\Builder
+# Class: donatj\Ini\Builder
 
 Utility for Converting An Array to a INI string
 
@@ -24,6 +24,8 @@ function generate(array $data) : string
 ```
 
 INI String Result
+
+**Throws**: `\donatj\Ini\ExceededMaxDepthException`
 
 ---
 
@@ -101,6 +103,6 @@ Enable / Disable Skipping Null Values
   
 When enabled, null values will be skipped.
 
-# Class: \donatj\Ini\ExceededMaxDepthException
+# Class: donatj\Ini\ExceededMaxDepthException
 
 Exception thrown when the max depth supported by INI is exceeded.
