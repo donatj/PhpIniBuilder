@@ -10,7 +10,7 @@ cs:
 
 .PHONY: phpstan
 phpstan:
-	vendor/bin/phpstan analyse --configuration=phpstan.neon.dist
+	vendor/bin/phpstan
 
 .PHONY: cbf
 cbf:
