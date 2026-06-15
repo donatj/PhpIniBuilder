@@ -1,12 +1,16 @@
 SRC_FILES = $(shell find example src -type f -name '*.php')
 
 .PHONY: test
-test: cs
+test: cs phpstan
 	vendor/bin/phpunit
 
 .PHONY: cs
 cs:
 	vendor/bin/phpcs
+
+.PHONY: phpstan
+phpstan:
+	vendor/bin/phpstan analyse --configuration=phpstan.neon.dist
 
 .PHONY: cbf
 cbf:
