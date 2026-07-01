@@ -9,7 +9,7 @@ Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from ass
 
 ## Requirements
 
-- **php**: >=7.1
+- **php**: >=7.4
 - **ext-ctype**: *
 
 ## Installing

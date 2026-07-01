@@ -40,6 +40,7 @@ class Builder {
 	/**
 	 * INI String Result
 	 *
+	 * @param array<int|string, mixed> $data
 	 * @throws ExceededMaxDepthException
 	 */
 	public function generate( array $data ) : string {
@@ -49,6 +50,7 @@ class Builder {
 	/**
 	 * Same as `generate` - exists to make Builder callable.
 	 *
+	 * @param array<int|string, mixed> $data
 	 * @see self::generate
 	 */
 	public function __invoke( array $data ) : string {
@@ -58,7 +60,8 @@ class Builder {
 	/**
 	 * Recursive build function
 	 *
-	 * @param int|string $prevKey
+	 * @param array<int|string, mixed> $data
+	 * @param int|string|null          $prevKey
 	 * @throws ExceededMaxDepthException
 	 */
 	protected function build( array $data, int $depth = 0, $prevKey = null ) : string {
