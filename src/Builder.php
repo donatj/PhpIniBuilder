@@ -10,10 +10,10 @@ class Builder {
 	/** List of INI Reserved Words */
 	private const RESERVED = [ 'true', 'false', 'null' ];
 
-	protected bool $enableBool;
-	protected bool $enableNumeric;
-	protected bool $enableAlphaNumeric;
-	protected bool $skipNullValues;
+	private bool $enableBool;
+	private bool $enableNumeric;
+	private bool $enableAlphaNumeric;
+	private bool $skipNullValues;
 
 	/**
 	 * @param bool $enableBool         Enable automatic boolean detection?
@@ -61,7 +61,7 @@ class Builder {
 	 * @throws ExceededMaxDepthException When an array is nested more than two levels below the root.
 	 * @throws \TypeError When a leaf value is not a scalar, null, or stringable object.
 	 */
-	protected function build( array $data, int $depth = 0, int|string|null $prevKey = null ) : string {
+	private function build( array $data, int $depth = 0, int|string|null $prevKey = null ) : string {
 		$valueOutput = '';
 		$arrayOutput = '';
 
