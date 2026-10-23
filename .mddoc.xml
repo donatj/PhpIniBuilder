@@ -5,11 +5,11 @@
 			<badge-poser type="license" />
 			<badge-github-action name="donatj/PhpIniBuilder" workflow-file="ci.yml"/>
 			<text><![CDATA[
-Build INI strings from PHP arrays.
+PHP INI Builder converts PHP arrays into INI configuration text.
 
-Pass the generated text to `parse_ini_string()`. Write it to a file for `parse_ini_file()`.
+Use scalar values for INI entries. Use top-level arrays for sections. Nested arrays produce INI keys and lists. The builder quotes strings as needed and formats booleans and numbers for PHP's INI parser.
 
-It supports sections, nested keys, and lists.]]></text>
+Pass the generated text to `parse_ini_string()`. Write it to a file for `parse_ini_file()`.]]></text>
 			<section title="Requirements">
 				<composer-requires/>
 			</section>
