@@ -5,11 +5,11 @@
 [![ci.yml](https://github.com/donatj/PhpIniBuilder/actions/workflows/ci.yml/badge.svg)](https://github.com/donatj/PhpIniBuilder/actions/workflows/ci.yml)
 
 
-Build INI strings from PHP arrays.
+Writing INI by hand gets old fast.
 
-Keep configuration close to the code that uses it. Use the result with `parse_ini_string()`. Write it to a file for `parse_ini_file()`.
+Give the builder a PHP array. It gives you INI text. Parse it with `parse_ini_string()`. Save it to a file for `parse_ini_file()`.
 
-It handles sections. It handles nested keys. It handles lists.
+Sections, nested keys, and lists are all covered.
 
 ## Requirements
 
