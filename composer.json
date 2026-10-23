@@ -2,13 +2,13 @@
 	"name": "donatj/php-ini-builder",
 	"description": "PHP `parse_ini_string` Compatible INI Builder",
 	"require": {
-		"php": ">=7.4",
+		"php": ">=8.2",
 		"ext-ctype" : "*"
 	},
 	"require-dev": {
 		"donatj/drop": "*",
 		"donatj/mddoc": "^0.13",
-		"phpunit/phpunit": "~9|~11",
+		"phpunit/phpunit": "^11.0",
 		"phpstan/phpstan": "^2.2",
 		"corpus/coding-standard": "^0.10.0",
 		"squizlabs/php_codesniffer": "^4.0",

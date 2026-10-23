@@ -1,11 +1,8 @@
-<phpunit bootstrap="vendor/autoload.php">
-    <testsuites>
-        <testsuite name="Application">
-            <directory>test</directory>
-        </testsuite>
-    </testsuites>
-
-    <logging>
-        <log type="coverage-clover" target="coverage.xml"/>
-    </logging>
+<?xml version="1.0"?>
+<phpunit bootstrap="vendor/autoload.php" cacheDirectory=".phpunit.cache">
+	<testsuites>
+		<testsuite name="Application">
+			<directory>test</directory>
+		</testsuite>
+	</testsuites>
 </phpunit>

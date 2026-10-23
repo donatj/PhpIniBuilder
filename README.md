@@ -9,7 +9,7 @@ Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from ass
 
 ## Requirements
 
-- **php**: >=7.4
+- **php**: >=8.2
 - **ext-ctype**: *
 
 ## Installing
@@ -109,6 +109,8 @@ INI String Result
 
 **Throws**: `\donatj\Ini\ExceededMaxDepthException`
 
+**Throws**: `\TypeError`
+
 ---
 
 #### Method: Builder->__invoke
@@ -128,14 +130,10 @@ Same as `generate` - exists to make Builder callable.
 #### Method: Builder->escape
 
 ```php
-function escape($value): string
+function escape(bool|float|int|string|\Stringable|null $value): string
 ```
 
 Escapes Values According to Currently Set Rules
-
-##### Parameters
-
-- ***bool*** | ***float*** | ***int*** | ***string*** | ***null*** `$value`
 
 ---
 

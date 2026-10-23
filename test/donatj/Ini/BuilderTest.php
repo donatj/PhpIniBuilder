@@ -4,6 +4,7 @@ namespace donatj\Ini\Test;
 
 use donatj\Ini\Builder;
 use donatj\Ini\ExceededMaxDepthException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class BuilderTest extends TestCase {
@@ -40,6 +41,30 @@ class BuilderTest extends TestCase {
 		$this->assertStringEndsWith("'3.14159265'", $builder->generate([ 'x' => 3.14159265 ]));
 	}
 
+	public function testEscapeStringable() : void {
+		$value = new class implements \Stringable {
+
+			public function __toString() : string {
+				return 'value with spaces';
+			}
+
+		};
+
+		$this->assertSame("'value with spaces'", (new Builder)->escape($value));
+	}
+
+	public function testEscapeRejectsArray() : void {
+		$this->expectException(\TypeError::class);
+
+		(new Builder)->escape([]);
+	}
+
+	public function testGenerateRejectsUnsupportedValue() : void {
+		$this->expectException(\TypeError::class);
+
+		(new Builder)->generate([ 'invalid' => new \stdClass ]);
+	}
+
 	public function testNumericIndex() : void {
 
 		$data    = [ 'x' => [ 'y' => [ 'a' => 'test', '2', '3', '4', 6 => '4', '7', 5 => 'bbq', 'bbq' => 'soda' ] ] ];
@@ -57,7 +82,7 @@ class BuilderTest extends TestCase {
 			'late' => 'value',
 		];
 
-		$this->assertTrue($this->arrays_are_similar(parse_ini_string($builder->generate($data), true), $data), 'Assert Late Root Keys Will be Processed');
+		$this->assertTrue($this->arraysAreSimilar(parse_ini_string($builder->generate($data), true), $data), 'Assert Late Root Keys Will be Processed');
 	}
 
 	public function testSkipNullValues() : void {
@@ -128,7 +153,7 @@ TAG
 		), trim($builder->generate($data)));
 	}
 
-	private function arrays_are_similar( array $aSide, array $bSide ) : bool {
+	private function arraysAreSimilar( array $aSide, array $bSide ) : bool {
 
 		$keys = array_unique(array_merge(
 			array_keys($aSide),
@@ -144,7 +169,7 @@ TAG
 			$bSideValue = $bSide[$key];
 
 			if( is_array($aSideValue) && is_array($bSideValue) ) {
-				if( !$this->arrays_are_similar($aSideValue, $bSideValue) ) {
+				if( !$this->arraysAreSimilar($aSideValue, $bSideValue) ) {
 					return false;
 				}
 			} elseif( !is_array($aSideValue) && !is_array($bSideValue) ) {
@@ -159,9 +184,7 @@ TAG
 		return true;
 	}
 
-	/**
-	 * @dataProvider encodedDataProvider
-	 */
+	#[DataProvider('encodedDataProvider')]
 	public function testEncoding( array $input, string $expected ) : void {
 		$builder = new Builder;
 		$this->assertEquals($expected, $builder->generate($input));
@@ -203,9 +226,7 @@ INI
 		];
 	}
 
-	/**
-	 * @dataProvider symmetryProvider
-	 */
+	#[DataProvider('symmetryProvider')]
 	public function testSymmetry( array $input ) : void {
 		$builder = new Builder;
 		$builder->enableNumericDetection(true);

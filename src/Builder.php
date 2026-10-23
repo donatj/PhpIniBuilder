@@ -10,14 +10,10 @@ class Builder {
 	/** List of INI Reserved Words */
 	private const RESERVED = [ 'true', 'false', 'null' ];
 
-	/** @var bool */
-	protected $enableBool;
-	/** @var bool */
-	protected $enableNumeric;
-	/** @var bool */
-	protected $enableAlphaNumeric;
-	/** @var bool */
-	protected $skipNullValues;
+	protected bool $enableBool;
+	protected bool $enableNumeric;
+	protected bool $enableAlphaNumeric;
+	protected bool $skipNullValues;
 
 	/**
 	 * @param bool $enableBool         Enable automatic boolean detection?
@@ -42,6 +38,7 @@ class Builder {
 	 *
 	 * @param array<int|string, mixed> $data
 	 * @throws ExceededMaxDepthException
+	 * @throws \TypeError
 	 */
 	public function generate( array $data ) : string {
 		return $this->build($data);
@@ -61,10 +58,10 @@ class Builder {
 	 * Recursive build function
 	 *
 	 * @param array<int|string, mixed> $data
-	 * @param int|string|null          $prevKey
 	 * @throws ExceededMaxDepthException
+	 * @throws \TypeError
 	 */
-	protected function build( array $data, int $depth = 0, $prevKey = null ) : string {
+	protected function build( array $data, int $depth = 0, int|string|null $prevKey = null ) : string {
 		$valueOutput = '';
 		$arrayOutput = '';
 
@@ -93,6 +90,10 @@ class Builder {
 				continue;
 			}
 
+			if( !is_scalar($val) && $val !== null && !$val instanceof \Stringable ) {
+				throw new \TypeError('INI values must be scalar, null, or stringable.');
+			}
+
 			$valStr = $this->escape($val);
 			if( $depth <= 1 ) {
 				$valueOutput .= "{$key} = {$valStr}\n";
@@ -117,9 +118,8 @@ class Builder {
 	/**
 	 * Escapes Values According to Currently Set Rules
 	 *
-	 * @param bool|float|int|string|null $value
 	 */
-	public function escape( $value ) : string {
+	public function escape( bool|float|int|string|\Stringable|null $value ) : string {
 		$value = (string)$value;
 
 		if( $this->enableBool ) {
