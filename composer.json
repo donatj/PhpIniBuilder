@@ -3,9 +3,9 @@
 	"description": "PHP `parse_ini_string` Compatible INI Builder",
 	"keywords": [
 		"ini",
-		"ini-builder",
-		"ini-encoder",
-		"ini-writer",
+		"building",
+		"encoding",
+		"writing",
 		"configuration"
 	],
 	"require": {
