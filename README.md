@@ -151,7 +151,11 @@ Escapes values according to the current rules.
 function withBoolDetection(bool $enableBool): static
 ```
 
-Configure whether empty strings and `1` are output as INI boolean values. The original builder is not changed.
+Enable or disable automatic boolean detection.  
+  
+PHP's built-in `parse_ini_*` methods parse `1`, `'1'`, and `true`. They parse `''` and `false` to the same  
+values when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be  
+output as `true` / `false`. The original builder is not changed.
 
 ---
 
@@ -161,7 +165,10 @@ Configure whether empty strings and `1` are output as INI boolean values. The or
 function withNumericDetection(bool $enableNumeric): static
 ```
 
-Configure whether numeric values are output without quotation marks. The original builder is not changed.
+Enable or disable automatic numeric detection.  
+  
+PHP's built-in `parse_ini_*` methods parse all values to strings. Enabling this option enables numeric detection  
+so they will be output once again as floats/ints. The original builder is not changed.
 
 ---
 
@@ -171,7 +178,10 @@ Configure whether numeric values are output without quotation marks. The origina
 function withAlphanumericDetection(bool $enableAlphanumeric): static
 ```
 
-Configure whether simple unreserved strings are output without quotation marks. The original builder is not changed.
+Enable or disable automatic alphanumeric detection.  
+  
+PHP's built-in `parse_ini_*` methods do not require quotation marks around simple strings without spaces.  
+Enabling this option removes the quotation marks on said simple strings. The original builder is not changed.
 
 ---
 
@@ -181,7 +191,9 @@ Configure whether simple unreserved strings are output without quotation marks. 
 function withSkipNullValues(bool $skipNullValues): static
 ```
 
-Configure whether null values are skipped. The original builder is not changed.
+Enable or disable skipping null values.  
+  
+When enabled, null values will be skipped. The original builder is not changed.
 
 ### Class: donatj\Ini\ExceededMaxDepthException
 
