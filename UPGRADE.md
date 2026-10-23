@@ -4,15 +4,14 @@ This major release requires PHP 8.2 or later.
 
 ## Builder configuration
 
-`Builder` configuration is immutable. The `enable*` methods were removed. Use the matching `with*` method. Assign its returned builder.
+`Builder` configuration is immutable. The `enable*` methods were removed. Chain the matching `with*` methods from a new builder:
 
 ```php
-$builder = new Builder;
-
-$builder = $builder->withBoolDetection(false);
-$builder = $builder->withNumericDetection(false);
-$builder = $builder->withAlphanumericDetection(false);
-$builder = $builder->withSkipNullValues(true);
+$builder = (new Builder)
+	->withBoolDetection(false)
+	->withNumericDetection(false)
+	->withAlphanumericDetection(false)
+	->withSkipNullValues(true);
 ```
 
 `withAlphaNumericDetection()` was renamed to `withAlphanumericDetection()`. The matching constructor named argument is now `$enableAlphanumeric`.
