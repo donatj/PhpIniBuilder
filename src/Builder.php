@@ -30,7 +30,7 @@ class Builder {
 	 * @throws ExceededMaxDepthException When an array is nested more than two levels below the root.
 	 * @throws TypeError When a leaf value is not a scalar, null, or stringable object.
 	 */
-	public function generate( array $data ) : string {
+	public function generate( array $data ): string {
 		return $this->build($data);
 	}
 
@@ -40,7 +40,7 @@ class Builder {
 	 * @param array<int|string, mixed> $data
 	 * @see self::generate
 	 */
-	public function __invoke( array $data ) : string {
+	public function __invoke( array $data ): string {
 		return $this->generate($data);
 	}
 
@@ -51,7 +51,7 @@ class Builder {
 	 * @throws ExceededMaxDepthException When an array is nested more than two levels below the root.
 	 * @throws TypeError When a leaf value is not a scalar, null, or stringable object.
 	 */
-	private function build( array $data, int $depth = 0, int|string|null $prevKey = null ) : string {
+	private function build( array $data, int $depth = 0, int|string|null $prevKey = null ): string {
 		$valueOutput = '';
 		$arrayOutput = '';
 
@@ -108,7 +108,7 @@ class Builder {
 	/**
 	 * Escapes values according to the current rules.
 	 */
-	public function escape( bool|float|int|string|\Stringable|null $value ) : string {
+	public function escape( bool|float|int|string|\Stringable|null $value ): string {
 		$value = (string)$value;
 
 		if( $this->enableBool ) {
@@ -143,7 +143,7 @@ class Builder {
 	 * values when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be
 	 * output as `true` / `false`. The original builder is not changed.
 	 */
-	public function withBoolDetection( bool $enableBool ) : static {
+	public function withBoolDetection( bool $enableBool ): static {
 		$builder = clone $this;
 		$builder->enableBool = $enableBool;
 
@@ -156,7 +156,7 @@ class Builder {
 	 * PHP's built-in `parse_ini_*` methods parse all values to strings. Enabling this option enables numeric detection
 	 * so they will be output once again as floats/ints. The original builder is not changed.
 	 */
-	public function withNumericDetection( bool $enableNumeric ) : static {
+	public function withNumericDetection( bool $enableNumeric ): static {
 		$builder = clone $this;
 		$builder->enableNumeric = $enableNumeric;
 
@@ -169,7 +169,7 @@ class Builder {
 	 * PHP's built-in `parse_ini_*` methods do not require quotation marks around simple strings without spaces.
 	 * Enabling this option removes the quotation marks on said simple strings. The original builder is not changed.
 	 */
-	public function withAlphanumericDetection( bool $enableAlphanumeric ) : static {
+	public function withAlphanumericDetection( bool $enableAlphanumeric ): static {
 		$builder = clone $this;
 		$builder->enableAlphanumeric = $enableAlphanumeric;
 
@@ -181,7 +181,7 @@ class Builder {
 	 *
 	 * When enabled, null values will be skipped. The original builder is not changed.
 	 */
-	public function withSkipNullValues( bool $skipNullValues ) : static {
+	public function withSkipNullValues( bool $skipNullValues ): static {
 		$builder = clone $this;
 		$builder->skipNullValues = $skipNullValues;
 

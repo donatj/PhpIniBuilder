@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class BuilderTest extends TestCase {
 
-	public function testMaxDepthException() : void {
+	public function testMaxDepthException(): void {
 		$this->expectException(ExceededMaxDepthException::class);
 
 		$data    = [ 'x' => [ 'y' => [ 'z' => [ 'a' => 1 ] ] ] ];
@@ -18,7 +18,7 @@ class BuilderTest extends TestCase {
 		$builder->generate($data);
 	}
 
-	public function testWithBoolDetection() : void {
+	public function testWithBoolDetection(): void {
 		$builder = new Builder;
 		$this->assertStringEndsWith("true", $builder->generate([ 'x' => 1 ]));
 
@@ -28,7 +28,7 @@ class BuilderTest extends TestCase {
 		$this->assertStringEndsWith("1", $withoutBoolDetection->generate([ 'x' => 1 ]));
 	}
 
-	public function testWithNumericDetection() : void {
+	public function testWithNumericDetection(): void {
 		// Integer
 		$builder = new Builder;
 		$this->assertStringEndsWith("7", $builder->generate([ 'x' => 7 ]));
@@ -44,7 +44,7 @@ class BuilderTest extends TestCase {
 		$this->assertStringEndsWith("'3.14159265'", $builder->generate([ 'x' => 3.14159265 ]));
 	}
 
-	public function testWithAlphanumericDetection() : void {
+	public function testWithAlphanumericDetection(): void {
 		$builder = new Builder;
 		$withoutAlphanumericDetection = $builder->withAlphanumericDetection(false);
 
@@ -52,16 +52,16 @@ class BuilderTest extends TestCase {
 		$this->assertSame("'value'", $withoutAlphanumericDetection->escape('value'));
 	}
 
-	public function testAlphanumericConstructorArgument() : void {
+	public function testAlphanumericConstructorArgument(): void {
 		$builder = new Builder(enableAlphanumeric: false);
 
 		$this->assertSame("'value'", $builder->escape('value'));
 	}
 
-	public function testEscapeStringable() : void {
+	public function testEscapeStringable(): void {
 		$value = new class implements \Stringable {
 
-			public function __toString() : string {
+			public function __toString(): string {
 				return 'value with spaces';
 			}
 
@@ -70,19 +70,19 @@ class BuilderTest extends TestCase {
 		$this->assertSame("'value with spaces'", (new Builder)->escape($value));
 	}
 
-	public function testEscapeRejectsArray() : void {
+	public function testEscapeRejectsArray(): void {
 		$this->expectException(\TypeError::class);
 
 		(new Builder)->escape([]);
 	}
 
-	public function testGenerateRejectsUnsupportedValue() : void {
+	public function testGenerateRejectsUnsupportedValue(): void {
 		$this->expectException(TypeError::class);
 
 		(new Builder)->generate([ 'invalid' => new \stdClass ]);
 	}
 
-	public function testNumericIndex() : void {
+	public function testNumericIndex(): void {
 
 		$data    = [ 'x' => [ 'y' => [ 'a' => 'test', '2', '3', '4', 6 => '4', '7', 5 => 'bbq', 'bbq' => 'soda' ] ] ];
 		$builder = new Builder;
@@ -90,7 +90,7 @@ class BuilderTest extends TestCase {
 		$this->assertSame($data, parse_ini_string($builder->generate($data), true));
 	}
 
-	public function testLateRootValues() : void {
+	public function testLateRootValues(): void {
 		$builder = new Builder;
 		$data    = [
 			'x'    => [
@@ -102,7 +102,7 @@ class BuilderTest extends TestCase {
 		$this->assertTrue($this->arraysAreSimilar(parse_ini_string($builder->generate($data), true), $data), 'Assert Late Root Keys Will be Processed');
 	}
 
-	public function testSkipNullValues() : void {
+	public function testSkipNullValues(): void {
 		$builder = (new Builder)->withSkipNullValues(true);
 
 		$data = [
@@ -113,7 +113,7 @@ class BuilderTest extends TestCase {
 			'other' => null,
 		];
 
-		//demands empty x,skip index 2, no other
+		// demands empty x,skip index 2, no other
 		$this->assertEquals(trim('[x]
 
 [y]
@@ -122,7 +122,7 @@ class BuilderTest extends TestCase {
 3 = 3'), trim($builder->generate($data)));
 	}
 
-	public function testListArray() : void {
+	public function testListArray(): void {
 		$builder = new Builder;
 
 		$data = [ 'foo' => [ 'bar' => [ 'a', 2 => 'b', 1 => 'c', 'd' ] ] ];
@@ -138,7 +138,7 @@ class BuilderTest extends TestCase {
 		$this->assertSame($data, parse_ini_string($out, true));
 	}
 
-	public function testReservedWordSEscape() : void {
+	public function testReservedWordSEscape(): void {
 		$builder = new Builder;
 
 		$data = [
@@ -156,24 +156,24 @@ class BuilderTest extends TestCase {
 		];
 
 		$this->assertEquals(trim(<<<'TAG'
-true_string = 'true'
-true_string2 = 'TRUE'
-true_literal = true
-false_string = 'false'
-false_string2 = 'FALSE'
-false_literal = false
-null_string = 'null'
-null_string2 = 'NULL'
-null_literal = false
-TAG
+			true_string = 'true'
+			true_string2 = 'TRUE'
+			true_literal = true
+			false_string = 'false'
+			false_string2 = 'FALSE'
+			false_literal = false
+			null_string = 'null'
+			null_string2 = 'NULL'
+			null_literal = false
+			TAG
 		), trim($builder->generate($data)));
 	}
 
-	private function arraysAreSimilar( array $aSide, array $bSide ) : bool {
+	private function arraysAreSimilar( array $aSide, array $bSide ): bool {
 
 		$keys = array_unique(array_merge(
 			array_keys($aSide),
-			array_keys($bSide)
+			array_keys($bSide),
 		));
 
 		foreach( $keys as $key ) {
@@ -201,12 +201,12 @@ TAG
 	}
 
 	#[DataProvider('encodedDataProvider')]
-	public function testEncoding( array $input, string $expected ) : void {
+	public function testEncoding( array $input, string $expected ): void {
 		$builder = new Builder;
 		$this->assertEquals($expected, $builder->generate($input));
 	}
 
-	public static function encodedDataProvider() : array {
+	public static function encodedDataProvider(): array {
 		return [
 			[
 				[ 'foo' => 'bar' ],
@@ -215,41 +215,41 @@ TAG
 			[
 				[ 'foo' => [ 'bar' => 'baz' ] ],
 				<<<'INI'
-[foo]
-bar = baz
-INI
+					[foo]
+					bar = baz
+					INI
 				,
 			],
 			[
 				[ 'foo' => [ 'bar' => [ 'baz' => 'qux' ] ] ],
 				<<<'INI'
-[foo]
-bar[baz] = qux
-INI
+					[foo]
+					bar[baz] = qux
+					INI
 				,
 			],
 			[
 				[ 'foo' => [ 'bar' => [ 'a', 2 => 'b', 1 => 'c', 'd' ] ] ],
 				<<<'INI'
-[foo]
-bar[] = a
-bar[2] = b
-bar[1] = c
-bar[] = d
-INI
+					[foo]
+					bar[] = a
+					bar[2] = b
+					bar[1] = c
+					bar[] = d
+					INI
 				,
 			],
 		];
 	}
 
 	#[DataProvider('symmetryProvider')]
-	public function testSymmetry( array $input ) : void {
+	public function testSymmetry( array $input ): void {
 		$builder = (new Builder)->withNumericDetection(true);
 
 		$this->assertSame($input, parse_ini_string($builder->generate($input), true, INI_SCANNER_TYPED));
 	}
 
-	public static function symmetryProvider() : array {
+	public static function symmetryProvider(): array {
 		$out = [
 			[ [ 'foo' => 7 ] ],
 		];
