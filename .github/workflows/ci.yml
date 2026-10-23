@@ -30,3 +30,6 @@ jobs:
 
       - name: Run tests
         run: make test
+
+      - name: Check documentation
+        run: vendor/bin/mddoc --dry-run=true .mddoc.xml

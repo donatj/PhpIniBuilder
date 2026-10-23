@@ -78,10 +78,15 @@ Utility for Converting An Array to a INI string
 #### Method: Builder->__construct
 
 ```php
-function __construct([ bool $enableBool = true [, bool $enableNumeric = true [, bool $enableAlphaNumeric = true [, bool $skipNullValues = false]]]])
+function __construct(
+	bool $enableBool = true,
+	bool $enableNumeric = true,
+	bool $enableAlphaNumeric = true,
+	bool $skipNullValues = false,
+)
 ```
 
-##### Parameters:
+##### Parameters
 
 - ***bool*** `$enableBool` - Enable automatic boolean detection?
 - ***bool*** `$enableNumeric` - Enable automatic numeric detection?
@@ -93,10 +98,14 @@ function __construct([ bool $enableBool = true [, bool $enableNumeric = true [, 
 #### Method: Builder->generate
 
 ```php
-function generate(array $data) : string
+function generate(array $data): string
 ```
 
 INI String Result
+
+##### Parameters
+
+- ***array<int|string,mixed>*** `$data`
 
 **Throws**: `\donatj\Ini\ExceededMaxDepthException`
 
@@ -105,22 +114,26 @@ INI String Result
 #### Method: Builder->__invoke
 
 ```php
-function __invoke(array $data) : string
+function __invoke(array $data): string
 ```
 
 Same as `generate` - exists to make Builder callable.
+
+##### Parameters
+
+- ***array<int|string,mixed>*** `$data`
 
 ---
 
 #### Method: Builder->escape
 
 ```php
-function escape($value) : string
+function escape($value): string
 ```
 
 Escapes Values According to Currently Set Rules
 
-##### Parameters:
+##### Parameters
 
 - ***bool*** | ***float*** | ***int*** | ***string*** | ***null*** `$value`
 
@@ -129,7 +142,7 @@ Escapes Values According to Currently Set Rules
 #### Method: Builder->enableBoolDetection
 
 ```php
-function enableBoolDetection(bool $enableBool) : void
+function enableBoolDetection(bool $enableBool): void
 ```
 
 Enable / Disable Automatic Boolean Detection  
@@ -143,7 +156,7 @@ output as `true` / `false`
 #### Method: Builder->enableNumericDetection
 
 ```php
-function enableNumericDetection(bool $enableNumeric) : void
+function enableNumericDetection(bool $enableNumeric): void
 ```
 
 Enable / Disable Automatic Numeric Detection  
@@ -156,7 +169,7 @@ so they will be output once again as floats/ints
 #### Method: Builder->enableAlphaNumericDetection
 
 ```php
-function enableAlphaNumericDetection(bool $enableAlphaNumeric) : void
+function enableAlphaNumericDetection(bool $enableAlphaNumeric): void
 ```
 
 Enable / Disable Automatic AlphaNumeric Detection  
@@ -169,7 +182,7 @@ Enabling this option removes the quotation marks on said simple strings.
 #### Method: Builder->enableSkipNullValues
 
 ```php
-function enableSkipNullValues(bool $skipNullValues) : void
+function enableSkipNullValues(bool $skipNullValues): void
 ```
 
 Enable / Disable Skipping Null Values  
