@@ -1,6 +1,11 @@
 {
 	"name": "donatj/php-ini-builder",
-	"description": "PHP `parse_ini_string` Compatible INI Builder",
+	"description": "Build PHP arrays into INI configuration text.",
+	"homepage": "https://github.com/donatj/PhpIniBuilder",
+	"support": {
+		"issues": "https://github.com/donatj/PhpIniBuilder/issues",
+		"source": "https://github.com/donatj/PhpIniBuilder"
+	},
 	"keywords": [
 		"ini",
 		"ini building",
@@ -41,6 +46,7 @@
 		}
 	},
 	"config": {
+		"sort-packages": true,
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
