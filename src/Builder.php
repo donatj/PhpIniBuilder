@@ -10,11 +10,6 @@ class Builder {
 	/** List of INI Reserved Words */
 	private const RESERVED = [ 'true', 'false', 'null' ];
 
-	private bool $enableBool;
-	private bool $enableNumeric;
-	private bool $enableAlphanumeric;
-	private bool $skipNullValues;
-
 	/**
 	 * @param bool $enableBool         Enable automatic boolean detection?
 	 * @param bool $enableNumeric      Enable automatic numeric detection?
@@ -22,16 +17,11 @@ class Builder {
 	 * @param bool $skipNullValues     Skip null values?
 	 */
 	public function __construct(
-		bool $enableBool = true,
-		bool $enableNumeric = true,
-		bool $enableAlphanumeric = true,
-		bool $skipNullValues = false
-	) {
-		$this->enableBool         = $enableBool;
-		$this->enableNumeric      = $enableNumeric;
-		$this->enableAlphanumeric = $enableAlphanumeric;
-		$this->skipNullValues     = $skipNullValues;
-	}
+		private bool $enableBool = true,
+		private bool $enableNumeric = true,
+		private bool $enableAlphanumeric = true,
+		private bool $skipNullValues = false,
+	) {}
 
 	/**
 	 * INI String Result
