@@ -17,28 +17,38 @@ class BuilderTest extends TestCase {
 		$builder->generate($data);
 	}
 
-	public function testEnableBoolDetection() : void {
+	public function testWithBoolDetection() : void {
 		$builder = new Builder;
 		$this->assertStringEndsWith("true", $builder->generate([ 'x' => 1 ]));
 
-		$builder->enableBoolDetection(false);
-		$this->assertStringEndsWith("1", $builder->generate([ 'x' => 1 ]));
+		$withoutBoolDetection = $builder->withBoolDetection(false);
+		$this->assertNotSame($builder, $withoutBoolDetection);
+		$this->assertStringEndsWith("true", $builder->generate([ 'x' => 1 ]));
+		$this->assertStringEndsWith("1", $withoutBoolDetection->generate([ 'x' => 1 ]));
 	}
 
-	public function testEnableNumericDetection() : void {
+	public function testWithNumericDetection() : void {
 		// Integer
 		$builder = new Builder;
 		$this->assertStringEndsWith("7", $builder->generate([ 'x' => 7 ]));
 
-		$builder->enableNumericDetection(false);
+		$builder = $builder->withNumericDetection(false);
 		$this->assertStringEndsWith("'7'", $builder->generate([ 'x' => 7 ]));
 
 		// Float
-		$builder->enableNumericDetection(true);
+		$builder = $builder->withNumericDetection(true);
 		$this->assertStringEndsWith("3.14159265", $builder->generate([ 'x' => 3.14159265 ]));
 
-		$builder->enableNumericDetection(false);
+		$builder = $builder->withNumericDetection(false);
 		$this->assertStringEndsWith("'3.14159265'", $builder->generate([ 'x' => 3.14159265 ]));
+	}
+
+	public function testWithAlphaNumericDetection() : void {
+		$builder = new Builder;
+		$withoutAlphaNumericDetection = $builder->withAlphaNumericDetection(false);
+
+		$this->assertSame('value', $builder->escape('value'));
+		$this->assertSame("'value'", $withoutAlphaNumericDetection->escape('value'));
 	}
 
 	public function testEscapeStringable() : void {
@@ -86,8 +96,7 @@ class BuilderTest extends TestCase {
 	}
 
 	public function testSkipNullValues() : void {
-		$builder = new Builder;
-		$builder->enableSkipNullValues(true);
+		$builder = (new Builder)->withSkipNullValues(true);
 
 		$data = [
 			'x'     => [
@@ -228,8 +237,7 @@ INI
 
 	#[DataProvider('symmetryProvider')]
 	public function testSymmetry( array $input ) : void {
-		$builder = new Builder;
-		$builder->enableNumericDetection(true);
+		$builder = (new Builder)->withNumericDetection(true);
 
 		$this->assertSame($input, parse_ini_string($builder->generate($input), true, INI_SCANNER_TYPED));
 	}

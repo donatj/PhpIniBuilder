@@ -137,55 +137,55 @@ Escapes Values According to Currently Set Rules
 
 ---
 
-#### Method: Builder->enableBoolDetection
+#### Method: Builder->withBoolDetection
 
 ```php
-function enableBoolDetection(bool $enableBool): void
+function withBoolDetection(bool $enableBool): static
 ```
 
 Enable / Disable Automatic Boolean Detection  
   
 PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same  
 values when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be  
-output as `true` / `false`
+output as `true` / `false`. The original builder is not changed.
 
 ---
 
-#### Method: Builder->enableNumericDetection
+#### Method: Builder->withNumericDetection
 
 ```php
-function enableNumericDetection(bool $enableNumeric): void
+function withNumericDetection(bool $enableNumeric): static
 ```
 
 Enable / Disable Automatic Numeric Detection  
   
 PHP's built in `parse_ini_*` methods parse all values to string. Enabling this option enables numeric detection  
-so they will be output once again as floats/ints
+so they will be output once again as floats/ints. The original builder is not changed.
 
 ---
 
-#### Method: Builder->enableAlphaNumericDetection
+#### Method: Builder->withAlphaNumericDetection
 
 ```php
-function enableAlphaNumericDetection(bool $enableAlphaNumeric): void
+function withAlphaNumericDetection(bool $enableAlphaNumeric): static
 ```
 
 Enable / Disable Automatic AlphaNumeric Detection  
   
 PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces.  
-Enabling this option removes the quotation marks on said simple strings.
+Enabling this option removes the quotation marks on said simple strings. The original builder is not changed.
 
 ---
 
-#### Method: Builder->enableSkipNullValues
+#### Method: Builder->withSkipNullValues
 
 ```php
-function enableSkipNullValues(bool $skipNullValues): void
+function withSkipNullValues(bool $skipNullValues): static
 ```
 
 Enable / Disable Skipping Null Values  
   
-When enabled, null values will be skipped.
+When enabled, null values will be skipped. The original builder is not changed.
 
 ### Class: donatj\Ini\ExceededMaxDepthException
 

@@ -152,39 +152,51 @@ class Builder {
 	 *
 	 * PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same
 	 * values when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be
-	 * output as `true` / `false`
+	 * output as `true` / `false`. The original builder is not changed.
 	 */
-	public function enableBoolDetection( bool $enableBool ) : void {
-		$this->enableBool = $enableBool;
+	public function withBoolDetection( bool $enableBool ) : static {
+		$builder = clone $this;
+		$builder->enableBool = $enableBool;
+
+		return $builder;
 	}
 
 	/**
 	 * Enable / Disable Automatic Numeric Detection
 	 *
 	 * PHP's built in `parse_ini_*` methods parse all values to string. Enabling this option enables numeric detection
-	 * so they will be output once again as floats/ints
+	 * so they will be output once again as floats/ints. The original builder is not changed.
 	 */
-	public function enableNumericDetection( bool $enableNumeric ) : void {
-		$this->enableNumeric = $enableNumeric;
+	public function withNumericDetection( bool $enableNumeric ) : static {
+		$builder = clone $this;
+		$builder->enableNumeric = $enableNumeric;
+
+		return $builder;
 	}
 
 	/**
 	 * Enable / Disable Automatic AlphaNumeric Detection
 	 *
 	 * PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces.
-	 * Enabling this option removes the quotation marks on said simple strings.
+	 * Enabling this option removes the quotation marks on said simple strings. The original builder is not changed.
 	 */
-	public function enableAlphaNumericDetection( bool $enableAlphaNumeric ) : void {
-		$this->enableAlphaNumeric = $enableAlphaNumeric;
+	public function withAlphaNumericDetection( bool $enableAlphaNumeric ) : static {
+		$builder = clone $this;
+		$builder->enableAlphaNumeric = $enableAlphaNumeric;
+
+		return $builder;
 	}
 
 	/**
 	 * Enable / Disable Skipping Null Values
 	 *
-	 * When enabled, null values will be skipped.
+	 * When enabled, null values will be skipped. The original builder is not changed.
 	 */
-	public function enableSkipNullValues( bool $skipNullValues ) : void {
-		$this->skipNullValues = $skipNullValues;
+	public function withSkipNullValues( bool $skipNullValues ) : static {
+		$builder = clone $this;
+		$builder->skipNullValues = $skipNullValues;
+
+		return $builder;
 	}
 
 }
