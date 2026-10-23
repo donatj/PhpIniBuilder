@@ -166,20 +166,6 @@ INI String Result
 
 ---
 
-#### Method: Builder->__invoke
-
-```php
-function __invoke(array $data): string
-```
-
-Same as `generate` - exists to make Builder callable.
-
-##### Parameters
-
-- ***array<int|string,mixed>*** `$data`
-
----
-
 #### Method: Builder->escape
 
 ```php

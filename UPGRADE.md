@@ -16,6 +16,10 @@ $builder = (new Builder)
 
 `enableAlphaNumericDetection()` became `withAlphanumericDetection()`. The constructor named argument changed from `$enableAlphaNumeric` to `$enableAlphanumeric`.
 
+## Generating configuration
+
+`Builder` is no longer callable. Replace `$builder($data)` with `$builder->generate($data)`.
+
 ## Extending Builder
 
 `Builder` no longer supports subclass customization. Its internal state and `build()` method are private.

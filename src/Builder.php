@@ -35,16 +35,6 @@ class Builder {
 	}
 
 	/**
-	 * Same as `generate` - exists to make Builder callable.
-	 *
-	 * @param array<int|string, mixed> $data
-	 * @see self::generate
-	 */
-	public function __invoke( array $data ): string {
-		return $this->generate($data);
-	}
-
-	/**
 	 * Recursive build function
 	 *
 	 * @param array<int|string, mixed> $data
