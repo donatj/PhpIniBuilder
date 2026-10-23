@@ -3,14 +3,21 @@
 		<section title="PHP INI Builder">
 			<badge-poser type="version" />
 			<badge-poser type="license" />
-			<badge-github-action name="donatj/phpUserAgent" workflow-file="ci.yml"/>
+			<badge-github-action name="donatj/PhpIniBuilder" workflow-file="ci.yml"/>
 			<text><![CDATA[
-Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from associative arrays.]]></text>
+PHP INI Builder converts PHP arrays into INI configuration text.
+
+Use scalar values for INI entries. Use top-level arrays for sections. Nested arrays produce INI keys and lists. The builder quotes strings as needed and formats booleans and numbers for PHP's INI parser.
+
+Pass the generated text to `parse_ini_string()`. Write it to a file for `parse_ini_file()`.]]></text>
 			<section title="Requirements">
 				<composer-requires/>
 			</section>
 			<section title="Installing">
 				<composer-install/>
+			</section>
+			<section title="Upgrading">
+				<text>See [UPGRADE.md](UPGRADE.md) for migration notes.</text>
 			</section>
 			<section title="Example">
 				<text>Here is a simple example script:</text>
@@ -21,6 +28,7 @@ Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from ass
 			<section title="Documentation">
 				<file name="src/Builder.php"/>
 				<file name="src/ExceededMaxDepthException.php"/>
+				<file name="src/TypeError.php"/>
 			</section>
 		</section>
 	</docpage>

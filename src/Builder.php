@@ -3,47 +3,34 @@
 namespace donatj\Ini;
 
 /**
- * Utility for Converting An Array to a INI string
+ * Builds an INI string from an array.
  */
 class Builder {
 
 	/** List of INI Reserved Words */
 	private const RESERVED = [ 'true', 'false', 'null' ];
 
-	/** @var bool */
-	protected $enableBool;
-	/** @var bool */
-	protected $enableNumeric;
-	/** @var bool */
-	protected $enableAlphaNumeric;
-	/** @var bool */
-	protected $skipNullValues;
-
 	/**
 	 * @param bool $enableBool         Enable automatic boolean detection?
 	 * @param bool $enableNumeric      Enable automatic numeric detection?
-	 * @param bool $enableAlphaNumeric Enable automatic alpha-numeric detection?
+	 * @param bool $enableAlphanumeric Enable automatic alphanumeric detection?
 	 * @param bool $skipNullValues     Skip null values?
 	 */
 	public function __construct(
-		bool $enableBool = true,
-		bool $enableNumeric = true,
-		bool $enableAlphaNumeric = true,
-		bool $skipNullValues = false
-	) {
-		$this->enableBool         = $enableBool;
-		$this->enableNumeric      = $enableNumeric;
-		$this->enableAlphaNumeric = $enableAlphaNumeric;
-		$this->skipNullValues     = $skipNullValues;
-	}
+		private bool $enableBool = true,
+		private bool $enableNumeric = true,
+		private bool $enableAlphanumeric = true,
+		private bool $skipNullValues = false,
+	) {}
 
 	/**
 	 * INI String Result
 	 *
 	 * @param array<int|string, mixed> $data
-	 * @throws ExceededMaxDepthException
+	 * @throws ExceededMaxDepthException When an array is nested more than two levels below the root.
+	 * @throws TypeError When a leaf value is not a scalar, null, or stringable object.
 	 */
-	public function generate( array $data ) : string {
+	public function generate( array $data ): string {
 		return $this->build($data);
 	}
 
@@ -53,7 +40,7 @@ class Builder {
 	 * @param array<int|string, mixed> $data
 	 * @see self::generate
 	 */
-	public function __invoke( array $data ) : string {
+	public function __invoke( array $data ): string {
 		return $this->generate($data);
 	}
 
@@ -61,10 +48,10 @@ class Builder {
 	 * Recursive build function
 	 *
 	 * @param array<int|string, mixed> $data
-	 * @param int|string|null          $prevKey
-	 * @throws ExceededMaxDepthException
+	 * @throws ExceededMaxDepthException When an array is nested more than two levels below the root.
+	 * @throws TypeError When a leaf value is not a scalar, null, or stringable object.
 	 */
-	protected function build( array $data, int $depth = 0, $prevKey = null ) : string {
+	private function build( array $data, int $depth = 0, int|string|null $prevKey = null ): string {
 		$valueOutput = '';
 		$arrayOutput = '';
 
@@ -93,6 +80,10 @@ class Builder {
 				continue;
 			}
 
+			if( !is_scalar($val) && $val !== null && !$val instanceof \Stringable ) {
+				throw new TypeError('INI values must be scalar, null, or stringable.');
+			}
+
 			$valStr = $this->escape($val);
 			if( $depth <= 1 ) {
 				$valueOutput .= "{$key} = {$valStr}\n";
@@ -115,11 +106,9 @@ class Builder {
 	}
 
 	/**
-	 * Escapes Values According to Currently Set Rules
-	 *
-	 * @param bool|float|int|string|null $value
+	 * Escapes values according to the current rules.
 	 */
-	public function escape( $value ) : string {
+	public function escape( bool|float|int|string|\Stringable|null $value ): string {
 		$value = (string)$value;
 
 		if( $this->enableBool ) {
@@ -136,7 +125,7 @@ class Builder {
 			return (string)$value;
 		}
 
-		if( $this->enableAlphaNumeric
+		if( $this->enableAlphanumeric
 			&& ctype_alnum($value)
 			&& !is_numeric($value)
 			&& !in_array(strtolower($value), self::RESERVED)
@@ -148,43 +137,55 @@ class Builder {
 	}
 
 	/**
-	 * Enable / Disable Automatic Boolean Detection
+	 * Enable or disable automatic boolean detection.
 	 *
-	 * PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same
+	 * PHP's built-in `parse_ini_*` methods parse `1`, `'1'`, and `true`. They parse `''` and `false` to the same
 	 * values when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be
-	 * output as `true` / `false`
+	 * output as `true` / `false`. The original builder is not changed.
 	 */
-	public function enableBoolDetection( bool $enableBool ) : void {
-		$this->enableBool = $enableBool;
+	public function withBoolDetection( bool $enableBool ): static {
+		$builder = clone $this;
+		$builder->enableBool = $enableBool;
+
+		return $builder;
 	}
 
 	/**
-	 * Enable / Disable Automatic Numeric Detection
+	 * Enable or disable automatic numeric detection.
 	 *
-	 * PHP's built in `parse_ini_*` methods parse all values to string. Enabling this option enables numeric detection
-	 * so they will be output once again as floats/ints
+	 * PHP's built-in `parse_ini_*` methods parse all values to strings. Enabling this option enables numeric detection
+	 * so they will be output once again as floats/ints. The original builder is not changed.
 	 */
-	public function enableNumericDetection( bool $enableNumeric ) : void {
-		$this->enableNumeric = $enableNumeric;
+	public function withNumericDetection( bool $enableNumeric ): static {
+		$builder = clone $this;
+		$builder->enableNumeric = $enableNumeric;
+
+		return $builder;
 	}
 
 	/**
-	 * Enable / Disable Automatic AlphaNumeric Detection
+	 * Enable or disable automatic alphanumeric detection.
 	 *
-	 * PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces.
-	 * Enabling this option removes the quotation marks on said simple strings.
+	 * PHP's built-in `parse_ini_*` methods do not require quotation marks around simple strings without spaces.
+	 * Enabling this option removes the quotation marks on said simple strings. The original builder is not changed.
 	 */
-	public function enableAlphaNumericDetection( bool $enableAlphaNumeric ) : void {
-		$this->enableAlphaNumeric = $enableAlphaNumeric;
+	public function withAlphanumericDetection( bool $enableAlphanumeric ): static {
+		$builder = clone $this;
+		$builder->enableAlphanumeric = $enableAlphanumeric;
+
+		return $builder;
 	}
 
 	/**
-	 * Enable / Disable Skipping Null Values
+	 * Enable or disable skipping null values.
 	 *
-	 * When enabled, null values will be skipped.
+	 * When enabled, null values will be skipped. The original builder is not changed.
 	 */
-	public function enableSkipNullValues( bool $skipNullValues ) : void {
-		$this->skipNullValues = $skipNullValues;
+	public function withSkipNullValues( bool $skipNullValues ): static {
+		$builder = clone $this;
+		$builder->skipNullValues = $skipNullValues;
+
+		return $builder;
 	}
 
 }

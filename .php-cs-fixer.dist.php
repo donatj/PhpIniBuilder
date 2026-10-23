@@ -7,26 +7,32 @@ $finder = PhpCsFixer\Finder::create()
 	->in(__DIR__ . '/example')
 	->name('*.php');
 
-$finder->files()->append([__DIR__ . 'composer/bin/mddoc']);
-
 return (new PhpCsFixer\Config)
 	->setUsingCache(true)
 	->setIndent("\t")
 	->setLineEnding("\n")
-	//->setUsingLinter(false)
+	// ->setUsingLinter(false)
 	->setRiskyAllowed(true)
 	->setRules(
 		[
-			'@PHPUnit60Migration:risky' => true,
+			'@PHPUnit11x0Migration:risky' => true,
+			'@PHP8x2Migration'            => true,
+
+			'php_unit_attributes' => true,
+
+			'modernize_strpos' => true,
+
 			'php_unit_test_case_static_method_calls' => [
 				'call_type' => 'this',
 			],
 
-			'concat_space'              => [
+			'concat_space' => [
 				'spacing' => 'one',
 			],
 
-			'visibility_required' => true,
+			'modifier_keywords' => [
+				'elements' => [ 'property', 'method' ],
+			],
 			'indentation_type'    => true,
 			'no_useless_return'   => true,
 
@@ -39,9 +45,13 @@ return (new PhpCsFixer\Config)
 			'no_leading_import_slash'         => true,
 			'no_leading_namespace_whitespace' => true,
 
+			'array_indentation' => true,
+
 			'no_whitespace_in_blank_line' => true,
+			'no_trailing_whitespace'      => true,
 
 			'phpdoc_add_missing_param_annotation' => [ 'only_untyped' => true, ],
+			'phpdoc_types_no_duplicates'          => true,
 			'phpdoc_indent'                       => true,
 
 			'phpdoc_no_alias_tag'          => true,
@@ -80,13 +90,18 @@ return (new PhpCsFixer\Config)
 			'ternary_operator_spaces'         => true,
 			'no_spaces_after_function_name'   => true,
 			'no_unneeded_control_parentheses' => true,
+			'no_multiple_statements_per_line' => true,
+			'no_redundant_readonly_property'  => true,
+
+			'stringable_for_to_string' => true,
 
 			'return_type_declaration' => [
-				'space_before' => 'one',
+				'space_before' => 'none',
 			],
 
 			'single_line_after_imports'          => true,
 			'single_blank_line_before_namespace' => true,
+			'single_line_comment_spacing'        => true,
 			'blank_line_after_namespace'         => true,
 			'single_blank_line_at_eof'           => true,
 			'ternary_to_null_coalescing'         => true,
@@ -115,11 +130,13 @@ return (new PhpCsFixer\Config)
 
 			'no_useless_else' => true,
 
+			'compact_nullable_type_declaration' => true,
+
 			'combine_consecutive_issets'  => true,
-			'escape_implicit_backslashes' => true,
+			'string_implicit_backslashes' => true,
 			'explicit_indirect_variable'  => true,
 			'heredoc_to_nowdoc'           => true,
-
+			'heredoc_indentation'         => true,
 
 			'no_singleline_whitespace_before_semicolons' => true,
 			'no_null_property_initialization'            => true,
@@ -140,7 +157,7 @@ return (new PhpCsFixer\Config)
 
 			'method_chaining_indentation' => true,
 			'method_argument_space'       => [
-				'on_multiline' => 'ignore', // at least until they fix it
+				'on_multiline'                     => 'ignore', // at least until they fix it
 				'keep_multiple_spaces_after_comma' => true,
 			],
 
@@ -157,17 +174,25 @@ return (new PhpCsFixer\Config)
 				'import_functions' => false,
 			],
 
-			'trailing_comma_in_multiline' => true,
-			'single_line_comment_style' => true,
+			'trailing_comma_in_multiline' => [
+				'elements'      => [ 'arrays', 'arguments', 'parameters', 'match' ],
+				'after_heredoc' => true,
+			],
+			'single_line_comment_style'   => true,
 
-			'is_null' => true,
+			'is_null'    => true,
 			'yoda_style' => [
-				'equal' => false,
-				'identical' => false,
+				'equal'            => false,
+				'identical'        => false,
 				'less_and_greater' => null,
 			],
-		]
+
+			'empty_loop_condition' => [
+				'style' => 'for',
+			],
+
+			'native_function_casing'         => true,
+			'native_type_declaration_casing' => true,
+		],
 	)
 	->setFinder($finder);
-
-

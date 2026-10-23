@@ -2,14 +2,18 @@
 
 [![Latest Stable Version](https://poser.pugx.org/donatj/php-ini-builder/version)](https://packagist.org/packages/donatj/php-ini-builder)
 [![License](https://poser.pugx.org/donatj/php-ini-builder/license)](https://packagist.org/packages/donatj/php-ini-builder)
-[![ci.yml](https://github.com/donatj/phpUserAgent/actions/workflows/ci.yml/badge.svg)](https://github.com/donatj/phpUserAgent/actions/workflows/ci.yml)
+[![ci.yml](https://github.com/donatj/PhpIniBuilder/actions/workflows/ci.yml/badge.svg)](https://github.com/donatj/PhpIniBuilder/actions/workflows/ci.yml)
 
 
-Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from associative arrays.
+PHP INI Builder converts PHP arrays into INI configuration text.
+
+Use scalar values for INI entries. Use top-level arrays for sections. Nested arrays produce INI keys and lists. The builder quotes strings as needed and formats booleans and numbers for PHP's INI parser.
+
+Pass the generated text to `parse_ini_string()`. Write it to a file for `parse_ini_file()`.
 
 ## Requirements
 
-- **php**: >=7.4
+- **php**: >=8.2
 - **ext-ctype**: *
 
 ## Installing
@@ -19,6 +23,10 @@ Install the latest version with:
 ```bash
 composer require 'donatj/php-ini-builder'
 ```
+
+## Upgrading
+
+See [UPGRADE.md](UPGRADE.md) for migration notes.
 
 ## Example
 
@@ -73,7 +81,7 @@ arr[key] = f
 
 ### Class: donatj\Ini\Builder
 
-Utility for Converting An Array to a INI string
+Builds an INI string from an array.
 
 #### Method: Builder->__construct
 
@@ -81,7 +89,7 @@ Utility for Converting An Array to a INI string
 function __construct(
 	bool $enableBool = true,
 	bool $enableNumeric = true,
-	bool $enableAlphaNumeric = true,
+	bool $enableAlphanumeric = true,
 	bool $skipNullValues = false,
 )
 ```
@@ -90,7 +98,7 @@ function __construct(
 
 - ***bool*** `$enableBool` - Enable automatic boolean detection?
 - ***bool*** `$enableNumeric` - Enable automatic numeric detection?
-- ***bool*** `$enableAlphaNumeric` - Enable automatic alpha-numeric detection?
+- ***bool*** `$enableAlphanumeric` - Enable automatic alphanumeric detection?
 - ***bool*** `$skipNullValues` - Skip null values?
 
 ---
@@ -107,7 +115,9 @@ INI String Result
 
 - ***array<int|string,mixed>*** `$data`
 
-**Throws**: `\donatj\Ini\ExceededMaxDepthException`
+**Throws**: `\donatj\Ini\ExceededMaxDepthException` - When an array is nested more than two levels below the root.
+
+**Throws**: `\donatj\Ini\TypeError` - When a leaf value is not a scalar, null, or stringable object.
 
 ---
 
@@ -128,67 +138,67 @@ Same as `generate` - exists to make Builder callable.
 #### Method: Builder->escape
 
 ```php
-function escape($value): string
+function escape(bool|float|int|string|\Stringable|null $value): string
 ```
 
-Escapes Values According to Currently Set Rules
-
-##### Parameters
-
-- ***bool*** | ***float*** | ***int*** | ***string*** | ***null*** `$value`
+Escapes values according to the current rules.
 
 ---
 
-#### Method: Builder->enableBoolDetection
+#### Method: Builder->withBoolDetection
 
 ```php
-function enableBoolDetection(bool $enableBool): void
+function withBoolDetection(bool $enableBool): static
 ```
 
-Enable / Disable Automatic Boolean Detection  
+Enable or disable automatic boolean detection.  
   
-PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same  
+PHP's built-in `parse_ini_*` methods parse `1`, `'1'`, and `true`. They parse `''` and `false` to the same  
 values when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be  
-output as `true` / `false`
+output as `true` / `false`. The original builder is not changed.
 
 ---
 
-#### Method: Builder->enableNumericDetection
+#### Method: Builder->withNumericDetection
 
 ```php
-function enableNumericDetection(bool $enableNumeric): void
+function withNumericDetection(bool $enableNumeric): static
 ```
 
-Enable / Disable Automatic Numeric Detection  
+Enable or disable automatic numeric detection.  
   
-PHP's built in `parse_ini_*` methods parse all values to string. Enabling this option enables numeric detection  
-so they will be output once again as floats/ints
+PHP's built-in `parse_ini_*` methods parse all values to strings. Enabling this option enables numeric detection  
+so they will be output once again as floats/ints. The original builder is not changed.
 
 ---
 
-#### Method: Builder->enableAlphaNumericDetection
+#### Method: Builder->withAlphanumericDetection
 
 ```php
-function enableAlphaNumericDetection(bool $enableAlphaNumeric): void
+function withAlphanumericDetection(bool $enableAlphanumeric): static
 ```
 
-Enable / Disable Automatic AlphaNumeric Detection  
+Enable or disable automatic alphanumeric detection.  
   
-PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces.  
-Enabling this option removes the quotation marks on said simple strings.
+PHP's built-in `parse_ini_*` methods do not require quotation marks around simple strings without spaces.  
+Enabling this option removes the quotation marks on said simple strings. The original builder is not changed.
 
 ---
 
-#### Method: Builder->enableSkipNullValues
+#### Method: Builder->withSkipNullValues
 
 ```php
-function enableSkipNullValues(bool $skipNullValues): void
+function withSkipNullValues(bool $skipNullValues): static
 ```
 
-Enable / Disable Skipping Null Values  
+Enable or disable skipping null values.  
   
-When enabled, null values will be skipped.
+When enabled, null values will be skipped. The original builder is not changed.
 
 ### Class: donatj\Ini\ExceededMaxDepthException
 
 Exception thrown when the max depth supported by INI is exceeded.
+
+### Class: donatj\Ini\TypeError
+
+Thrown when a value cannot be represented in an INI string.
