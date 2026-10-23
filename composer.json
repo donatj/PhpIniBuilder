@@ -1,6 +1,13 @@
 {
 	"name": "donatj/php-ini-builder",
 	"description": "PHP `parse_ini_string` Compatible INI Builder",
+	"keywords": [
+		"ini",
+		"ini-builder",
+		"ini-encoder",
+		"ini-writer",
+		"configuration"
+	],
 	"require": {
 		"php": ">=8.2",
 		"ext-ctype" : "*"
