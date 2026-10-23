@@ -7,8 +7,6 @@ $finder = PhpCsFixer\Finder::create()
 	->in(__DIR__ . '/example')
 	->name('*.php');
 
-$finder->files()->append([__DIR__ . 'composer/bin/mddoc']);
-
 return (new PhpCsFixer\Config)
 	->setUsingCache(true)
 	->setIndent("\t")
@@ -169,5 +167,4 @@ return (new PhpCsFixer\Config)
 		]
 	)
 	->setFinder($finder);
-
 

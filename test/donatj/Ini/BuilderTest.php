@@ -43,12 +43,18 @@ class BuilderTest extends TestCase {
 		$this->assertStringEndsWith("'3.14159265'", $builder->generate([ 'x' => 3.14159265 ]));
 	}
 
-	public function testWithAlphaNumericDetection() : void {
+	public function testWithAlphanumericDetection() : void {
 		$builder = new Builder;
-		$withoutAlphaNumericDetection = $builder->withAlphaNumericDetection(false);
+		$withoutAlphanumericDetection = $builder->withAlphanumericDetection(false);
 
 		$this->assertSame('value', $builder->escape('value'));
-		$this->assertSame("'value'", $withoutAlphaNumericDetection->escape('value'));
+		$this->assertSame("'value'", $withoutAlphanumericDetection->escape('value'));
+	}
+
+	public function testAlphanumericConstructorArgument() : void {
+		$builder = new Builder(enableAlphanumeric: false);
+
+		$this->assertSame("'value'", $builder->escape('value'));
 	}
 
 	public function testEscapeStringable() : void {

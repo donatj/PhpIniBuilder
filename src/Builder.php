@@ -3,7 +3,7 @@
 namespace donatj\Ini;
 
 /**
- * Utility for Converting An Array to a INI string
+ * Builds an INI string from an array.
  */
 class Builder {
 
@@ -12,24 +12,24 @@ class Builder {
 
 	private bool $enableBool;
 	private bool $enableNumeric;
-	private bool $enableAlphaNumeric;
+	private bool $enableAlphanumeric;
 	private bool $skipNullValues;
 
 	/**
 	 * @param bool $enableBool         Enable automatic boolean detection?
 	 * @param bool $enableNumeric      Enable automatic numeric detection?
-	 * @param bool $enableAlphaNumeric Enable automatic alpha-numeric detection?
+	 * @param bool $enableAlphanumeric Enable automatic alphanumeric detection?
 	 * @param bool $skipNullValues     Skip null values?
 	 */
 	public function __construct(
 		bool $enableBool = true,
 		bool $enableNumeric = true,
-		bool $enableAlphaNumeric = true,
+		bool $enableAlphanumeric = true,
 		bool $skipNullValues = false
 	) {
 		$this->enableBool         = $enableBool;
 		$this->enableNumeric      = $enableNumeric;
-		$this->enableAlphaNumeric = $enableAlphaNumeric;
+		$this->enableAlphanumeric = $enableAlphanumeric;
 		$this->skipNullValues     = $skipNullValues;
 	}
 
@@ -116,8 +116,7 @@ class Builder {
 	}
 
 	/**
-	 * Escapes Values According to Currently Set Rules
-	 *
+	 * Escapes values according to the current rules.
 	 */
 	public function escape( bool|float|int|string|\Stringable|null $value ) : string {
 		$value = (string)$value;
@@ -136,7 +135,7 @@ class Builder {
 			return (string)$value;
 		}
 
-		if( $this->enableAlphaNumeric
+		if( $this->enableAlphanumeric
 			&& ctype_alnum($value)
 			&& !is_numeric($value)
 			&& !in_array(strtolower($value), self::RESERVED)
@@ -148,9 +147,9 @@ class Builder {
 	}
 
 	/**
-	 * Enable / Disable Automatic Boolean Detection
+	 * Enable or disable automatic boolean detection.
 	 *
-	 * PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same
+	 * PHP's built-in `parse_ini_*` methods parse `1`, `'1'`, and `true`. They parse `''` and `false` to the same
 	 * values when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be
 	 * output as `true` / `false`. The original builder is not changed.
 	 */
@@ -162,9 +161,9 @@ class Builder {
 	}
 
 	/**
-	 * Enable / Disable Automatic Numeric Detection
+	 * Enable or disable automatic numeric detection.
 	 *
-	 * PHP's built in `parse_ini_*` methods parse all values to string. Enabling this option enables numeric detection
+	 * PHP's built-in `parse_ini_*` methods parse all values to strings. Enabling this option enables numeric detection
 	 * so they will be output once again as floats/ints. The original builder is not changed.
 	 */
 	public function withNumericDetection( bool $enableNumeric ) : static {
@@ -175,20 +174,20 @@ class Builder {
 	}
 
 	/**
-	 * Enable / Disable Automatic AlphaNumeric Detection
+	 * Enable or disable automatic alphanumeric detection.
 	 *
-	 * PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces.
+	 * PHP's built-in `parse_ini_*` methods do not require quotation marks around simple strings without spaces.
 	 * Enabling this option removes the quotation marks on said simple strings. The original builder is not changed.
 	 */
-	public function withAlphaNumericDetection( bool $enableAlphaNumeric ) : static {
+	public function withAlphanumericDetection( bool $enableAlphanumeric ) : static {
 		$builder = clone $this;
-		$builder->enableAlphaNumeric = $enableAlphaNumeric;
+		$builder->enableAlphanumeric = $enableAlphanumeric;
 
 		return $builder;
 	}
 
 	/**
-	 * Enable / Disable Skipping Null Values
+	 * Enable or disable skipping null values.
 	 *
 	 * When enabled, null values will be skipped. The original builder is not changed.
 	 */

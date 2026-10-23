@@ -3,11 +3,11 @@
 		<section title="PHP INI Builder">
 			<badge-poser type="version" />
 			<badge-poser type="license" />
-			<badge-github-action name="donatj/phpUserAgent" workflow-file="ci.yml"/>
+			<badge-github-action name="donatj/PhpIniBuilder" workflow-file="ci.yml"/>
 			<text><![CDATA[
 Build INI strings from PHP arrays.
 
-Keep configuration close to the code that uses it. PHP can read the result with `parse_ini_string()` or `parse_ini_file()`.
+Keep configuration close to the code that uses it. Use the result with `parse_ini_string()`. Write it to a file for `parse_ini_file()`.
 
 It handles sections. It handles nested keys. It handles lists.]]></text>
 			<section title="Requirements">
@@ -15,6 +15,9 @@ It handles sections. It handles nested keys. It handles lists.]]></text>
 			</section>
 			<section title="Installing">
 				<composer-install/>
+			</section>
+			<section title="Upgrading">
+				<text>See [UPGRADE.md](UPGRADE.md) for migration notes.</text>
 			</section>
 			<section title="Example">
 				<text>Here is a simple example script:</text>

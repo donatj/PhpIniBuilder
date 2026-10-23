@@ -2,12 +2,12 @@
 
 [![Latest Stable Version](https://poser.pugx.org/donatj/php-ini-builder/version)](https://packagist.org/packages/donatj/php-ini-builder)
 [![License](https://poser.pugx.org/donatj/php-ini-builder/license)](https://packagist.org/packages/donatj/php-ini-builder)
-[![ci.yml](https://github.com/donatj/phpUserAgent/actions/workflows/ci.yml/badge.svg)](https://github.com/donatj/phpUserAgent/actions/workflows/ci.yml)
+[![ci.yml](https://github.com/donatj/PhpIniBuilder/actions/workflows/ci.yml/badge.svg)](https://github.com/donatj/PhpIniBuilder/actions/workflows/ci.yml)
 
 
 Build INI strings from PHP arrays.
 
-Keep configuration close to the code that uses it. PHP can read the result with `parse_ini_string()` or `parse_ini_file()`.
+Keep configuration close to the code that uses it. Use the result with `parse_ini_string()`. Write it to a file for `parse_ini_file()`.
 
 It handles sections. It handles nested keys. It handles lists.
 
@@ -23,6 +23,10 @@ Install the latest version with:
 ```bash
 composer require 'donatj/php-ini-builder'
 ```
+
+## Upgrading
+
+See [UPGRADE.md](UPGRADE.md) for migration notes.
 
 ## Example
 
@@ -77,7 +81,7 @@ arr[key] = f
 
 ### Class: donatj\Ini\Builder
 
-Utility for Converting An Array to a INI string
+Builds an INI string from an array.
 
 #### Method: Builder->__construct
 
@@ -85,7 +89,7 @@ Utility for Converting An Array to a INI string
 function __construct(
 	bool $enableBool = true,
 	bool $enableNumeric = true,
-	bool $enableAlphaNumeric = true,
+	bool $enableAlphanumeric = true,
 	bool $skipNullValues = false,
 )
 ```
@@ -94,7 +98,7 @@ function __construct(
 
 - ***bool*** `$enableBool` - Enable automatic boolean detection?
 - ***bool*** `$enableNumeric` - Enable automatic numeric detection?
-- ***bool*** `$enableAlphaNumeric` - Enable automatic alpha-numeric detection?
+- ***bool*** `$enableAlphanumeric` - Enable automatic alphanumeric detection?
 - ***bool*** `$skipNullValues` - Skip null values?
 
 ---
@@ -137,7 +141,7 @@ Same as `generate` - exists to make Builder callable.
 function escape(bool|float|int|string|\Stringable|null $value): string
 ```
 
-Escapes Values According to Currently Set Rules
+Escapes values according to the current rules.
 
 ---
 
@@ -147,9 +151,9 @@ Escapes Values According to Currently Set Rules
 function withBoolDetection(bool $enableBool): static
 ```
 
-Enable / Disable Automatic Boolean Detection  
+Enable or disable automatic boolean detection.  
   
-PHP's built in `parse_ini_*` methods parse `1`, `'1'` and `true` and likewise `''`, and `false` to the same  
+PHP's built-in `parse_ini_*` methods parse `1`, `'1'`, and `true`. They parse `''` and `false` to the same  
 values when the scanner mode is set to `INI_SCANNER_NORMAL`, enabling this option causes these values to be  
 output as `true` / `false`. The original builder is not changed.
 
@@ -161,22 +165,22 @@ output as `true` / `false`. The original builder is not changed.
 function withNumericDetection(bool $enableNumeric): static
 ```
 
-Enable / Disable Automatic Numeric Detection  
+Enable or disable automatic numeric detection.  
   
-PHP's built in `parse_ini_*` methods parse all values to string. Enabling this option enables numeric detection  
+PHP's built-in `parse_ini_*` methods parse all values to strings. Enabling this option enables numeric detection  
 so they will be output once again as floats/ints. The original builder is not changed.
 
 ---
 
-#### Method: Builder->withAlphaNumericDetection
+#### Method: Builder->withAlphanumericDetection
 
 ```php
-function withAlphaNumericDetection(bool $enableAlphaNumeric): static
+function withAlphanumericDetection(bool $enableAlphanumeric): static
 ```
 
-Enable / Disable Automatic AlphaNumeric Detection  
+Enable or disable automatic alphanumeric detection.  
   
-PHP's built in `parse_ini_*` methods does not require quotation marks around simple strings without spaces.  
+PHP's built-in `parse_ini_*` methods do not require quotation marks around simple strings without spaces.  
 Enabling this option removes the quotation marks on said simple strings. The original builder is not changed.
 
 ---
@@ -187,7 +191,7 @@ Enabling this option removes the quotation marks on said simple strings. The ori
 function withSkipNullValues(bool $skipNullValues): static
 ```
 
-Enable / Disable Skipping Null Values  
+Enable or disable skipping null values.  
   
 When enabled, null values will be skipped. The original builder is not changed.
 

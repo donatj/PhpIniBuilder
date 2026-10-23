@@ -1,0 +1,2 @@
+# MDDoc generates Markdown hard breaks in API documentation.
+README.md -whitespace
