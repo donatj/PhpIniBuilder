@@ -3,6 +3,7 @@
 		<section title="PHP INI Builder">
 			<badge-poser type="version" />
 			<badge-poser type="license" />
+			<badge-coveralls name="github/donatj/PhpIniBuilder" />
 			<badge-github-action name="donatj/PhpIniBuilder" workflow-file="ci.yml"/>
 			<text><![CDATA[
 PHP INI Builder converts PHP arrays into INI configuration text.

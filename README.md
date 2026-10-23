@@ -2,6 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/donatj/php-ini-builder/version)](https://packagist.org/packages/donatj/php-ini-builder)
 [![License](https://poser.pugx.org/donatj/php-ini-builder/license)](https://packagist.org/packages/donatj/php-ini-builder)
+[![Coverage Status](https://coveralls.io/repos/github/donatj/PhpIniBuilder/badge.svg)](https://coveralls.io/github/donatj/PhpIniBuilder)
 [![ci.yml](https://github.com/donatj/PhpIniBuilder/actions/workflows/ci.yml/badge.svg)](https://github.com/donatj/PhpIniBuilder/actions/workflows/ci.yml)
 
 
