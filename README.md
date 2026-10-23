@@ -117,7 +117,7 @@ INI String Result
 
 **Throws**: `\donatj\Ini\ExceededMaxDepthException` - When an array is nested more than two levels below the root.
 
-**Throws**: `\TypeError` - When a leaf value is not a scalar, null, or stringable object.
+**Throws**: `\donatj\Ini\TypeError` - When a leaf value is not a scalar, null, or stringable object.
 
 ---
 
@@ -198,3 +198,7 @@ When enabled, null values will be skipped. The original builder is not changed.
 ### Class: donatj\Ini\ExceededMaxDepthException
 
 Exception thrown when the max depth supported by INI is exceeded.
+
+### Class: donatj\Ini\TypeError
+
+Thrown when a value cannot be represented in an INI string.

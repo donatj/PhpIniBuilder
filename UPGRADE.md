@@ -23,4 +23,4 @@ $builder = $builder->withSkipNullValues(true);
 
 ## Input validation
 
-`generate()` accepts scalar values, `null`, and stringable objects as INI values. Unsupported values throw `TypeError`.
+`generate()` accepts scalar values, `null`, and stringable objects as INI values. Unsupported values throw `donatj\Ini\TypeError`.

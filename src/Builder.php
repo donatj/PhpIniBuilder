@@ -38,7 +38,7 @@ class Builder {
 	 *
 	 * @param array<int|string, mixed> $data
 	 * @throws ExceededMaxDepthException When an array is nested more than two levels below the root.
-	 * @throws \TypeError When a leaf value is not a scalar, null, or stringable object.
+	 * @throws TypeError When a leaf value is not a scalar, null, or stringable object.
 	 */
 	public function generate( array $data ) : string {
 		return $this->build($data);
@@ -59,7 +59,7 @@ class Builder {
 	 *
 	 * @param array<int|string, mixed> $data
 	 * @throws ExceededMaxDepthException When an array is nested more than two levels below the root.
-	 * @throws \TypeError When a leaf value is not a scalar, null, or stringable object.
+	 * @throws TypeError When a leaf value is not a scalar, null, or stringable object.
 	 */
 	private function build( array $data, int $depth = 0, int|string|null $prevKey = null ) : string {
 		$valueOutput = '';
@@ -91,7 +91,7 @@ class Builder {
 			}
 
 			if( !is_scalar($val) && $val !== null && !$val instanceof \Stringable ) {
-				throw new \TypeError('INI values must be scalar, null, or stringable.');
+				throw new TypeError('INI values must be scalar, null, or stringable.');
 			}
 
 			$valStr = $this->escape($val);

@@ -4,6 +4,7 @@ namespace donatj\Ini\Test;
 
 use donatj\Ini\Builder;
 use donatj\Ini\ExceededMaxDepthException;
+use donatj\Ini\TypeError;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -76,7 +77,7 @@ class BuilderTest extends TestCase {
 	}
 
 	public function testGenerateRejectsUnsupportedValue() : void {
-		$this->expectException(\TypeError::class);
+		$this->expectException(TypeError::class);
 
 		(new Builder)->generate([ 'invalid' => new \stdClass ]);
 	}

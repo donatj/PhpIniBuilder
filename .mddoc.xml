@@ -28,6 +28,7 @@ It handles sections. It handles nested keys. It handles lists.]]></text>
 			<section title="Documentation">
 				<file name="src/Builder.php"/>
 				<file name="src/ExceededMaxDepthException.php"/>
+				<file name="src/TypeError.php"/>
 			</section>
 		</section>
 	</docpage>
