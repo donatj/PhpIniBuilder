@@ -107,9 +107,9 @@ INI String Result
 
 - ***array<int|string,mixed>*** `$data`
 
-**Throws**: `\donatj\Ini\ExceededMaxDepthException`
+**Throws**: `\donatj\Ini\ExceededMaxDepthException` - When an array is nested more than two levels below the root.
 
-**Throws**: `\TypeError`
+**Throws**: `\TypeError` - When a leaf value is not a scalar, null, or stringable object.
 
 ---
 

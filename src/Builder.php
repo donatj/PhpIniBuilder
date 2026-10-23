@@ -37,8 +37,8 @@ class Builder {
 	 * INI String Result
 	 *
 	 * @param array<int|string, mixed> $data
-	 * @throws ExceededMaxDepthException
-	 * @throws \TypeError
+	 * @throws ExceededMaxDepthException When an array is nested more than two levels below the root.
+	 * @throws \TypeError When a leaf value is not a scalar, null, or stringable object.
 	 */
 	public function generate( array $data ) : string {
 		return $this->build($data);
@@ -58,8 +58,8 @@ class Builder {
 	 * Recursive build function
 	 *
 	 * @param array<int|string, mixed> $data
-	 * @throws ExceededMaxDepthException
-	 * @throws \TypeError
+	 * @throws ExceededMaxDepthException When an array is nested more than two levels below the root.
+	 * @throws \TypeError When a leaf value is not a scalar, null, or stringable object.
 	 */
 	protected function build( array $data, int $depth = 0, int|string|null $prevKey = null ) : string {
 		$valueOutput = '';
