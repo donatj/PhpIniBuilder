@@ -5,7 +5,11 @@
 [![ci.yml](https://github.com/donatj/phpUserAgent/actions/workflows/ci.yml/badge.svg)](https://github.com/donatj/phpUserAgent/actions/workflows/ci.yml)
 
 
-Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from associative arrays.
+Build INI strings from PHP arrays.
+
+Keep configuration close to the code that uses it. PHP can read the result with `parse_ini_string()` or `parse_ini_file()`.
+
+It handles sections. It handles nested keys. It handles lists.
 
 ## Requirements
 

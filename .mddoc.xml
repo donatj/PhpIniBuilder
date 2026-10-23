@@ -5,7 +5,11 @@
 			<badge-poser type="license" />
 			<badge-github-action name="donatj/phpUserAgent" workflow-file="ci.yml"/>
 			<text><![CDATA[
-Create PHP `parse_ini_string` / `parse_ini_file` compatible INI strings from associative arrays.]]></text>
+Build INI strings from PHP arrays.
+
+Keep configuration close to the code that uses it. PHP can read the result with `parse_ini_string()` or `parse_ini_file()`.
+
+It handles sections. It handles nested keys. It handles lists.]]></text>
 			<section title="Requirements">
 				<composer-requires/>
 			</section>
