@@ -28,6 +28,11 @@
 			"donatj\\Ini\\": "src/"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"donatj\\Ini\\Test\\": "test/donatj/Ini/"
+		}
+	},
 	"config": {
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
