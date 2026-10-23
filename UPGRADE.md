@@ -14,7 +14,7 @@ $builder = (new Builder)
 	->withSkipNullValues(true);
 ```
 
-`withAlphaNumericDetection()` was renamed to `withAlphanumericDetection()`. The matching constructor named argument is now `$enableAlphanumeric`.
+`enableAlphaNumericDetection()` became `withAlphanumericDetection()`. The constructor named argument changed from `$enableAlphaNumeric` to `$enableAlphanumeric`.
 
 ## Extending Builder
 
