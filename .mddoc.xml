@@ -19,11 +19,19 @@ Pass the generated text to `parse_ini_string()`. Write it to a file for `parse_i
 			<section title="Upgrading">
 				<text>See [UPGRADE.md](UPGRADE.md) for migration notes.</text>
 			</section>
-			<section title="Example">
-				<text>Here is a simple example script:</text>
-				<source name="example/example.php" lang="php"/>
-				<text>Which outputs:</text>
-				<exec cmd="php example/example.php" format="code-block" lang="ini" />
+			<section title="Examples">
+				<section title="Basic configuration">
+					<text>A top-level array creates an INI section:</text>
+					<source name="example/example.php" lang="php"/>
+					<text>It produces:</text>
+					<exec cmd="php example/example.php" format="code-block" lang="ini" />
+				</section>
+				<section title="Application configuration">
+					<text>Nested arrays create section keys. Sequential numeric keys create lists:</text>
+					<source name="example/application.php" lang="php"/>
+					<text>It produces:</text>
+					<exec cmd="php example/application.php" format="code-block" lang="ini" />
+				</section>
 			</section>
 			<section title="Documentation">
 				<file name="src/Builder.php"/>

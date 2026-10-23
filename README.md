@@ -28,9 +28,11 @@ composer require 'donatj/php-ini-builder'
 
 See [UPGRADE.md](UPGRADE.md) for migration notes.
 
-## Example
+## Examples
 
-Here is a simple example script:
+### Basic configuration
+
+A top-level array creates an INI section:
 
 ```php
 <?php
@@ -38,15 +40,54 @@ Here is a simple example script:
 require __DIR__ . '/../vendor/autoload.php';
 
 $data = [
-	'Title'   => [
-		'str' => 'awesome',
-		'int' => 7,
-		'flt' => 10.2,
+	'server' => [
+		'host'    => 'localhost',
+		'port'    => 8080,
+		'enabled' => true,
 	],
-	'Title 2' => [
-		'bool' => true,
-		'arr'  => [
-			'a', 'b', 'c', 6 => 'd', 'e', 'key' => 'f',
+];
+
+$builder = new \donatj\Ini\Builder;
+
+echo $builder->generate($data);
+
+```
+
+It produces:
+
+```ini
+[server]
+host = localhost
+port = 8080
+enabled = true
+```
+
+### Application configuration
+
+Nested arrays create section keys. Sequential numeric keys create lists:
+
+```php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$data = [
+	'environment' => 'production',
+	'application' => [
+		'name'            => 'inventory-api',
+		'port'            => 8080,
+		'log_path'        => '/var/log/inventory-api',
+		'trusted_proxies' => [
+			'10.0.0.10',
+			'10.0.0.11',
+		],
+	],
+	'database'    => [
+		'host'    => 'db.internal',
+		'port'    => 3306,
+		'options' => [
+			'timeout'    => 5,
+			'persistent' => false,
 		],
 	],
 ];
@@ -57,24 +98,27 @@ echo $builder->generate($data);
 
 ```
 
-Which outputs:
+It produces:
 
 ```ini
-[Title]
-str = awesome
-int = 7
-flt = 10.2
+environment = production
 
 
-[Title 2]
-bool = true
+[application]
+name = 'inventory-api'
+port = 8080
+log_path = '/var/log/inventory-api'
 
-arr[] = a
-arr[] = b
-arr[] = c
-arr[6] = d
-arr[] = e
-arr[key] = f
+trusted_proxies[] = '10.0.0.10'
+trusted_proxies[] = '10.0.0.11'
+
+
+[database]
+host = 'db.internal'
+port = 3306
+
+options[timeout] = 5
+options[persistent] = false
 ```
 
 ## Documentation
