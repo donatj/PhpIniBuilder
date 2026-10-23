@@ -18,13 +18,13 @@
 		"ext-ctype" : "*"
 	},
 	"require-dev": {
-		"donatj/drop": "*",
-		"donatj/mddoc": "^0.13",
-		"phpunit/phpunit": "^11.0",
-		"phpstan/phpstan": "^2.2",
-		"corpus/coding-standard": "^0.10.0",
-		"squizlabs/php_codesniffer": "^4.0",
-		"friendsofphp/php-cs-fixer": "^3.1"
+		"corpus/coding-standard": "=0.10.0",
+		"donatj/drop": "=1.1.1",
+		"donatj/mddoc": "=0.13.0",
+		"friendsofphp/php-cs-fixer": "=3.95.27",
+		"phpstan/phpstan": "=2.3.1",
+		"phpunit/phpunit": "=11.5.57",
+		"squizlabs/php_codesniffer": "=4.0.4"
 	},
 	"license": "MIT",
 	"authors": [
