@@ -1,6 +1,6 @@
-# Upgrading
+# Upgrading to v0.4.0
 
-This major release requires PHP 8.2 or later.
+v0.4.0 is a breaking release. It requires PHP 8.2 or later.
 
 ## Builder configuration
 
