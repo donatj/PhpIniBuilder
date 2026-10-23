@@ -7,7 +7,7 @@
 
 Build INI strings from PHP arrays.
 
-Keep configuration close to the code that uses it. Pass the generated text to `parse_ini_string()`. Write it to a file for `parse_ini_file()`.
+Pass the generated text to `parse_ini_string()`. Write it to a file for `parse_ini_file()`.
 
 It supports sections, nested keys, and lists.
 
