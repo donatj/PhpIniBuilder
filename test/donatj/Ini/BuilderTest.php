@@ -155,17 +155,18 @@ class BuilderTest extends TestCase {
 			'null_literal' => null,
 		];
 
-		$this->assertEquals(trim(<<<'TAG'
-			true_string = 'true'
-			true_string2 = 'TRUE'
-			true_literal = true
-			false_string = 'false'
-			false_string2 = 'FALSE'
-			false_literal = false
-			null_string = 'null'
-			null_string2 = 'NULL'
-			null_literal = false
-			TAG
+		$this->assertEquals(trim(
+			<<<'TAG'
+				true_string = 'true'
+				true_string2 = 'TRUE'
+				true_literal = true
+				false_string = 'false'
+				false_string2 = 'FALSE'
+				false_literal = false
+				null_string = 'null'
+				null_string2 = 'NULL'
+				null_literal = false
+				TAG
 		), trim($builder->generate($data)));
 	}
 
@@ -217,16 +218,14 @@ class BuilderTest extends TestCase {
 				<<<'INI'
 					[foo]
 					bar = baz
-					INI
-				,
+					INI,
 			],
 			[
 				[ 'foo' => [ 'bar' => [ 'baz' => 'qux' ] ] ],
 				<<<'INI'
 					[foo]
 					bar[baz] = qux
-					INI
-				,
+					INI,
 			],
 			[
 				[ 'foo' => [ 'bar' => [ 'a', 2 => 'b', 1 => 'c', 'd' ] ] ],
@@ -236,8 +235,7 @@ class BuilderTest extends TestCase {
 					bar[2] = b
 					bar[1] = c
 					bar[] = d
-					INI
-				,
+					INI,
 			],
 		];
 	}
