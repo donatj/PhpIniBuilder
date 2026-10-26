@@ -31,5 +31,8 @@ jobs:
       - name: Run tests
         run: make test
 
+      - name: Check PHP CS Fixer
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff
+
       - name: Check documentation
         run: vendor/bin/mddoc --dry-run=true
