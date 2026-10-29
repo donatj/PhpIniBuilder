@@ -166,7 +166,7 @@ class BuilderTest extends TestCase {
 				null_string = 'null'
 				null_string2 = 'NULL'
 				null_literal = false
-				TAG
+				TAG,
 		), trim($builder->generate($data)));
 	}
 
