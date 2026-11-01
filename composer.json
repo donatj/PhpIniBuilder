@@ -24,7 +24,7 @@
 		"donatj/mddoc": "=0.14.1",
 		"friendsofphp/php-cs-fixer": "=3.95.27",
 		"phpstan/phpstan": "=2.3.4",
-		"phpunit/phpunit": "^11.0",
+		"phpunit/phpunit": "^13.4",
 		"squizlabs/php_codesniffer": "=4.0.4"
 	},
 	"license": "MIT",
